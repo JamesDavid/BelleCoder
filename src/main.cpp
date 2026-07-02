@@ -4,6 +4,7 @@
 #include "hal/Touch.h"
 #include "core/App.h"
 #include "pal/pal.h"
+#include "services/Storage.h"
 #include "debug/SerialConsole.h"
 
 #include "screens/HomeScreen.h"
@@ -12,6 +13,7 @@
 #include "screens/RunScreen.h"
 #include "screens/SettingsScreen.h"
 #include "screens/DanceScreen.h"
+#include "screens/LoadScreen.h"
 
 void setup() {
   Serial.begin(115200);
@@ -20,6 +22,7 @@ void setup() {
 
   display.begin();
   touch.begin();
+  storage::begin();
   pal::begin();
 
   app.registerScreen(ScreenId::Home,     &homeScreen);
@@ -28,6 +31,7 @@ void setup() {
   app.registerScreen(ScreenId::Run,      &runScreen);
   app.registerScreen(ScreenId::Settings, &settingsScreen);
   app.registerScreen(ScreenId::Dance,    &danceScreen);
+  app.registerScreen(ScreenId::Load,     &loadScreen);
 
   app.begin();
   console.begin();

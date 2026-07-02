@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 enum class ScreenId : uint8_t {
-  Home, Editor, Palette, Run, Settings, Dance, COUNT
+  Home, Editor, Palette, Run, Settings, Dance, Load, COUNT
 };
 
 class Screen {

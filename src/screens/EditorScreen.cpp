@@ -5,6 +5,7 @@
 #include "../core/Hit.h"
 #include "../core/Nav.h"
 #include "../catalog/Catalog.h"
+#include "../services/Storage.h"
 #include <Arduino.h>
 #include <stdio.h>
 
@@ -152,6 +153,17 @@ void EditorScreen::onTap(int x, int y) {
 
   // list mode
   auto& seq = app.st.scratch;
+  // tap the title bar to Save the sequence (SPEC §6: Save promotes scratch to a named file)
+  if (y < 28) {
+    if (!seq.empty()) {
+      bool ok = storage::save(seq);
+      canvas.fillRound(SCREEN_W/2-70, 92, 140, 44, 8, ok?Theme::GREEN:Theme::RED);
+      canvas.text(ok?"Saved!":"Save failed", SCREEN_W/2, 106, Theme::TEXT, 2, Align::C);
+      delay(700);
+      enter();
+    }
+    return;
+  }
   if (nav::backRect().hit(x,y)) { app.go(ScreenId::Home); return; }
   if (tb(1).hit(x,y)) { app.go(ScreenId::Palette); return; }
   if (tb(2).hit(x,y)) { if (!seq.empty()){ seq.removeAt(app.st.sel); if(app.st.sel>=seq.count) app.st.sel=max(0,(int)seq.count-1);} enter(); return; }

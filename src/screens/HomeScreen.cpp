@@ -52,7 +52,7 @@ void HomeScreen::enter() {
 void HomeScreen::onTap(int x, int y) {
   auto& S = app.st;
   if (btnAt(0,0).hit(x,y)) { S.scratch.clear(); S.scratch.setName("My Dance"); S.sel=0; app.go(ScreenId::Editor); return; }
-  if (btnAt(1,0).hit(x,y)) { app.go(ScreenId::Settings); return; } // Load lives under a picker; M2
+  if (btnAt(1,0).hit(x,y)) { app.go(ScreenId::Load); return; }
   if (btnAt(0,1).hit(x,y)) { app.go(ScreenId::Editor); return; }
   if (btnAt(1,1).hit(x,y)) { app.go(ScreenId::Run); return; }
   if (S.imuPresent && btnAt(0,2).hit(x,y)) { app.go(ScreenId::Dance); return; }

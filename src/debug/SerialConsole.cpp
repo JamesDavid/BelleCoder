@@ -19,6 +19,7 @@ static ScreenId screenByName(const char* n) {
   if (!strcmp(n,"run"))      return ScreenId::Run;
   if (!strcmp(n,"settings")) return ScreenId::Settings;
   if (!strcmp(n,"dance"))    return ScreenId::Dance;
+  if (!strcmp(n,"load"))     return ScreenId::Load;
   return ScreenId::Home;
 }
 
