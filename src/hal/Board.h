@@ -59,6 +59,11 @@
   // Onboard speaker on GPIO 26 (DAC2 / via transistor) — chime feedback.
   #define PIN_SPEAKER           26
 
+  // Wand battery tap (M8): LiPo voltage via a 2:1 divider to a free input-only ADC pin.
+  // GPIO 35 is exposed on the Extended-IO connector and free (cyd.md). -1 = no monitor.
+  #define PIN_BATT_ADC          35
+  #define BATT_DIVIDER          2.0f
+
   // Capabilities
   #define CAP_HAS_PSRAM          0
   #define CAP_TOUCH_NEEDS_CAL    1   // resistive
@@ -84,6 +89,8 @@
   #define I2C_FREQ_HZ          400000
   #define PIN_SPEAKER          -1
 
+  #define PIN_BATT_ADC          -1     // battery monitor n/a on this variant
+  #define BATT_DIVIDER          2.0f
   #define BACKLIGHT_ACTIVE_HIGH  1
   #define BACKLIGHT_VIA_EXPANDER 1
   #define CAP_HAS_PSRAM          1

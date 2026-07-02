@@ -5,6 +5,7 @@
 #include "../core/Hit.h"
 #include "../pal/pal.h"
 #include "../services/Ble.h"
+#include "../services/Battery.h"
 #include <Arduino.h>
 
 HomeScreen homeScreen;
@@ -46,6 +47,19 @@ void HomeScreen::enter() {
   canvas.title("BelleCoder");
   // enchanted-rose motif dot
   canvas.fillCircle(16, 13, 5, Theme::ROSE);
+  // battery / USB indicator (wand power, M8)
+  {
+    int bx = SCREEN_W-34, by = 8;
+    canvas.rect(bx, by, 22, 11, Theme::TEXT_DIM);
+    canvas.fillRect(bx+22, by+3, 2, 5, Theme::TEXT_DIM);
+    if (battery::onUsb()) {
+      canvas.text("USB", bx-2, by+2, Theme::TEXT_DIM, 1, Align::R);
+    } else {
+      int pct = battery::percent();
+      uint16_t c = pct<20?Theme::RED:pct<50?Theme::GOLD:Theme::GREEN;
+      canvas.fillRect(bx+2, by+2, (18*pct)/100, 7, c);
+    }
+  }
 
   // status band (BLE scan/link state; tap to find/connect)
   drawStatusBand();

@@ -6,6 +6,7 @@
 #include "pal/pal.h"
 #include "services/Storage.h"
 #include "services/Ble.h"
+#include "services/Battery.h"
 #include "imu/Imu.h"
 #include "debug/SerialConsole.h"
 
@@ -26,6 +27,7 @@ void setup() {
   touch.begin();
   storage::begin();
   ble::begin();
+  battery::begin();
   pal::begin();
 
   // Optional IMU: probe I2C, verify chip-ID; gate the capture feature on the result (SPEC §9).
@@ -50,6 +52,7 @@ void loop() {
   console.poll();
   ble::tick();
   pal::tick();
+  battery::tick();
   app.loop();
   delay(5);
 }
