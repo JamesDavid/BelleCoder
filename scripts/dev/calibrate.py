@@ -18,8 +18,7 @@ def main():
     port=sys.argv[1] if len(sys.argv)>1 else "COM5"
     ser=serial.Serial(); ser.port=port; ser.baudrate=115200; ser.timeout=2
     ser.dtr=False; ser.rts=False; ser.open()
-    ser.setRTS(True); time.sleep(0.12); ser.setRTS(False); time.sleep(2.8)
-    ser.reset_input_buffer()
+    time.sleep(0.4); ser.reset_input_buffer()   # no RTS pulse (breaks writes w/ NimBLE)
     ser.write(b"P\n"); ser.flush(); time.sleep(0.4)
     ser.reset_input_buffer()
     ser.write(b"S\n"); ser.flush()

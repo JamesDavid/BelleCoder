@@ -60,10 +60,12 @@ def main():
     ser.port = port; ser.baudrate = 115200; ser.timeout = 2
     ser.dtr = False; ser.rts = False
     ser.open()
-    # deterministic reset (CH340 EN via RTS pulse), then let it boot
-    ser.setRTS(True); time.sleep(0.12); ser.setRTS(False)
-    time.sleep(2.8)
+    # NOTE: do NOT pulse RTS to hard-reset — with NimBLE running that re-enumerates USB and
+    # invalidates the write handle (Access denied). Opening with DTR/RTS low leaves the board
+    # running; we reach a known state by sending 'H' (Home) instead.
+    time.sleep(0.4)
     ser.reset_input_buffer()
+    ser.write(b"H\n"); ser.flush(); time.sleep(0.3)
 
     for raw in cmds.split(";"):
         c = raw.strip()

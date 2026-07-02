@@ -4,9 +4,33 @@
 #include "../core/Theme.h"
 #include "../core/Hit.h"
 #include "../pal/pal.h"
+#include "../services/Ble.h"
 #include <Arduino.h>
 
 HomeScreen homeScreen;
+
+static Rect statusBand() { return { 10, 32, SCREEN_W-20, 28 }; }
+
+static uint16_t bleColor() {
+  switch (ble::state()) {
+    case ble::State::Connected: return Theme::GREEN;
+    case ble::State::Scanning:
+    case ble::State::Connecting:return Theme::TEAL;
+    case ble::State::Found:     return Theme::GOLD;
+    case ble::State::Failed:    return Theme::RED;
+    default:                    return Theme::GOLD;   // idle / simulate
+  }
+}
+
+void HomeScreen::drawStatusBand() {
+  Rect b = statusBand();
+  canvas.fillRound(b.x, b.y, b.w, b.h, 6, Theme::BG_ALT);
+  canvas.fillCircle(b.x+14, b.y+14, 5, bleColor());
+  const char* txt = (ble::state()==ble::State::Idle && pal::simulated())
+                    ? "SIMULATE  (tap to find Belle)" : ble::statusText();
+  canvas.text(txt, b.x+28, b.y+8, bleColor(), 1, Align::L);
+  _lastBleState = (uint8_t)ble::state();
+}
 
 // button grid rects (2 cols x 3 rows in the body)
 static Rect btnAt(int col, int row) {
@@ -23,16 +47,11 @@ void HomeScreen::enter() {
   // enchanted-rose motif dot
   canvas.fillCircle(16, 13, 5, Theme::ROSE);
 
-  // status band
-  canvas.fillRound(10, 32, SCREEN_W-20, 28, 6, Theme::BG_ALT);
-  bool sim = pal::simulated();
-  canvas.fillCircle(24, 46, 5, sim ? Theme::GOLD : Theme::GREEN);
-  char st[48];
-  snprintf(st, sizeof st, sim ? "SIMULATE  (no doll linked)" : "Belle linked");
-  canvas.text(st, 38, 40, sim ? Theme::GOLD : Theme::GREEN, 1, Align::L);
+  // status band (BLE scan/link state; tap to find/connect)
+  drawStatusBand();
   if (S.tier == Tier::Advanced) {
     char im[32]; snprintf(im, sizeof im, "IMU: %s", S.imuLabel);
-    canvas.text(im, SCREEN_W-14, 40, Theme::TEXT_DIM, 1, Align::R);
+    canvas.text(im, SCREEN_W-14, 62, Theme::TEXT_DIM, 1, Align::R);
   }
 
   // buttons
@@ -49,8 +68,22 @@ void HomeScreen::enter() {
   canvas.text(f, SCREEN_W/2, SCREEN_H-14, Theme::TEXT_DIM, 1, Align::C);
 }
 
+void HomeScreen::tick(uint32_t) {
+  if ((uint8_t)ble::state() != _lastBleState) drawStatusBand();  // reflect async scan/connect
+}
+
 void HomeScreen::onTap(int x, int y) {
   auto& S = app.st;
+  // tap the status band to scan, then connect
+  if (statusBand().hit(x,y)) {
+    switch (ble::state()) {
+      case ble::State::Found:     ble::connectFound(); break;
+      case ble::State::Connected: ble::disconnect();   break;
+      default:                    ble::startScan();    break;
+    }
+    drawStatusBand();
+    return;
+  }
   if (btnAt(0,0).hit(x,y)) { S.scratch.clear(); S.scratch.setName("My Dance"); S.sel=0; app.go(ScreenId::Editor); return; }
   if (btnAt(1,0).hit(x,y)) { app.go(ScreenId::Load); return; }
   if (btnAt(0,1).hit(x,y)) { app.go(ScreenId::Editor); return; }

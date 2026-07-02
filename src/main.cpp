@@ -5,6 +5,7 @@
 #include "core/App.h"
 #include "pal/pal.h"
 #include "services/Storage.h"
+#include "services/Ble.h"
 #include "debug/SerialConsole.h"
 
 #include "screens/HomeScreen.h"
@@ -23,6 +24,7 @@ void setup() {
   display.begin();
   touch.begin();
   storage::begin();
+  ble::begin();
   pal::begin();
 
   app.registerScreen(ScreenId::Home,     &homeScreen);
@@ -40,6 +42,7 @@ void setup() {
 
 void loop() {
   console.poll();
+  ble::tick();
   app.loop();
   delay(5);
 }
