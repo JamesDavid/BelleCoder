@@ -43,6 +43,7 @@ void setup() {
 void loop() {
   console.poll();
   ble::tick();
+  pal::tick();
   app.loop();
   delay(5);
 }

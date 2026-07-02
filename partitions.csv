@@ -4,4 +4,5 @@
 nvs,      data, nvs,     0x9000,   0x5000
 phy_init, data, phy,     0xF000,   0x1000
 factory,  app,  factory, 0x10000,  0x2D0000
-littlefs, data, spiffs,  0x2E0000, 0x120000
+# label MUST be "spiffs" — LittleFS.begin()/uploadfs default to that partition label
+spiffs,   data, spiffs,  0x2E0000, 0x120000

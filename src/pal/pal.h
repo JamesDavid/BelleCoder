@@ -1,15 +1,16 @@
 #pragma once
 // pal/pal.h — Protocol Abstraction Layer (SPEC §10). ALL doll-specific knowledge lives here.
-// The UI/runner call this stable surface and never change. BLE_ENABLED gates SIMULATE vs real.
+// The UI/runner call this stable surface and never change.
 //
-// The RE phase (SPEC §11) is complete — real UUIDs/opcodes are in docs/BLE_PROTOCOL.md and
-// wired in at M4. Until BLE_ENABLED=1, sendMove() logs to Serial + the Run screen so the whole
-// app is exercisable with no doll present.
+// RE complete (docs/BLE_PROTOCOL.md). This builds the REAL packets and, when a doll is linked
+// (BLE_ENABLED && ble::isConnected()), writes them over NimBLE. Otherwise it SIMULATEs: logs the
+// exact bytes so the whole app is exercisable with no doll. Flip BLE_ENABLED to 1 for live use
+// (§11.4 covers the remaining timing/power tuning).
 #include <stdint.h>
 #include "../model/Move.h"
 
 #ifndef BLE_ENABLED
-#define BLE_ENABLED 0            // 0 = SIMULATE, 1 = real NimBLE
+#define BLE_ENABLED 0            // 0 = force SIMULATE; 1 = write when linked
 #endif
 
 namespace pal {
@@ -20,14 +21,14 @@ namespace pal {
   constexpr bool        WRITE_NO_RESP    = true;
 
   void     begin();
+  void     tick();                             // sends the deferred motor-brake; call from loop()
   bool     connect();
   bool     isConnected();
-  bool     simulated();                        // true when BLE_ENABLED==0 or not linked
-  bool     sendMove(MoveId m, int16_t p1);     // fire one move at the doll (or simulate)
-  uint16_t durationOf(MoveId m, int16_t p1);   // ms the move occupies (paces the runner/UI)
+  bool     simulated();                        // true when not writing to a real doll
+  bool     sendMove(MoveId m, int16_t p1);     // build + send (or simulate) one move
+  uint16_t durationOf(MoveId m, int16_t p1);   // ms the move occupies (paces runner/UI)
   bool     supports(MoveId m);                 // drives palette greying
-  void     settle();                           // neutral "stop" (brake wheels, arms down)
+  void     settle();                           // neutral stop (brake wheels, arms down)
 
-  // last simulated/real command line, for the Run screen readout
   const char* lastLog();
 }
