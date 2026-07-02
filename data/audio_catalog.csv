@@ -1,0 +1,413 @@
+index,code,kind,title,group,cue,seconds
+1,eP001,phrase,Wake up!,Greetings,,1.623
+2,eP002,phrase,Wake up!,Greetings,,2.657
+3,eP003,phrase,Belle says something,Belle talks,,2.656
+4,eP004,phrase,Wake up!,Greetings,,1.326
+5,eP005,phrase,Wake up!,Greetings,,1.749
+6,eP006,phrase,Belle chatter,Chatter,,3.185
+8,eP008,phrase,Belle chatter,Chatter,,2.594
+9,eP009,phrase,Belle chatter,Chatter,,1.805
+10,eP010,phrase,Belle says something,Belle talks,,2.258
+11,eP011,phrase,Belle chatter,Chatter,,3.737
+12,eP012,phrase,Belle chatter,Chatter,,5.369
+13,eP013,phrase,Belle chatter,Chatter,,5.195
+14,eP014,phrase,Belle chatter,Chatter,,2.130
+15,eP015,phrase,Belle chatter,Chatter,,2.030
+16,eP016,phrase,Belle chatter,Chatter,,1.135
+17,eP017,phrase,Belle says something,Belle talks,,1.843
+18,eP018,phrase,Belle chatter,Chatter,,2.982
+19,eP019,phrase,Belle chatter,Chatter,,3.499
+20,eP020,phrase,Belle chatter,Chatter,,4.471
+21,eP021,phrase,Belle chatter,Chatter,,3.266
+22,eP022,phrase,Belle chatter,Chatter,,3.938
+23,eP023,phrase,Belle chatter,Chatter,,3.822
+24,eP024,phrase,Belle chatter,Chatter,,3.455
+25,eP025,phrase,Belle chatter,Chatter,,4.739
+26,eP026,phrase,Belle chatter,Chatter,,4.367
+27,eP027,phrase,Belle says something,Belle talks,,4.558
+28,eP028,phrase,Belle chatter,Chatter,,4.403
+29,eP029,phrase,Belle chatter,Chatter,,4.840
+31,eP031,phrase,Belle chatter,Chatter,,4.867
+32,eP032,phrase,Belle chatter,Chatter,,2.750
+33,eP033,phrase,Belle says something,Belle talks,,4.916
+37,eP037,phrase,Goodnight,Sleepy,,2.498
+38,eP038,phrase,Goodnight,Sleepy,,3.078
+39,eP039,phrase,Goodnight,Sleepy,,3.291
+40,eP040,phrase,Goodnight,Sleepy,,4.028
+41,eP041,phrase,Goodnight,Sleepy,,3.824
+42,eP042,phrase,Goodnight,Sleepy,,2.812
+43,eP043,phrase,Goodnight,Sleepy,,3.697
+60,eP060,phrase,Hello!,Greetings,,2.222
+61,eP061,phrase,Hello!,Greetings,,1.989
+62,eP062,phrase,Hello!,Greetings,,1.202
+63,eP063,phrase,Hello!,Greetings,,1.284
+64,eP064,phrase,Hello!,Greetings,,2.744
+65,eP065,phrase,Belle says something,Belle talks,,4.037
+66,eP066,phrase,Belle says something,Belle talks,,3.166
+67,eP067,phrase,Belle says something,Belle talks,,3.414
+68,eP068,phrase,Belle says something,Belle talks,,2.022
+69,eP069,phrase,Belle says something,Belle talks,,2.973
+70,eP070,phrase,Dance intro,Dances,,1.228
+71,eP071,phrase,Dance intro,Dances,,1.264
+72,eP072,phrase,Dance intro,Dances,,1.761
+73,eP073,phrase,Dance name,Dances,,1.493
+74,eP074,phrase,Dance name,Dances,,1.817
+76,eP076,phrase,Dance name,Dances,,1.558
+77,eP077,phrase,Dance name,Dances,,1.876
+78,eP078,phrase,Dance name,Dances,,1.639
+79,eP079,phrase,Dance name,Dances,,1.349
+80,eP080,phrase,Dance name,Dances,,1.699
+81,eP081,phrase,Dance name,Dances,,1.714
+82,eP082,phrase,Dance name,Dances,,1.785
+83,eP083,phrase,Dance name,Dances,,1.846
+84,eP084,phrase,Cue: Dance!,Cues,Dance,1.638
+85,eP085,phrase,Cue: Dance!,Cues,Dance,2.579
+86,eP086,phrase,Cue: Dance!,Cues,Dance,2.590
+87,eP087,phrase,Cue: Dance!,Cues,Dance,2.313
+88,eP088,phrase,Cue: Dance!,Cues,Dance,2.576
+89,eP089,phrase,Cue: Dance!,Cues,Dance,2.152
+90,eP090,phrase,Cue: Dance!,Cues,Dance,3.033
+91,eP091,phrase,Cue: Dance!,Cues,Dance,3.104
+92,eP092,phrase,Cue: Dance!,Cues,Dance,2.867
+93,eP093,phrase,Cue: Dance!,Cues,Dance,3.190
+94,eP094,phrase,Cue: Dance!,Cues,Dance,1.736
+95,eP095,phrase,Cue: Dance!,Cues,Dance,2.617
+96,eP096,phrase,Cue: Dance!,Cues,Dance,2.688
+97,eP097,phrase,Cue: Dance!,Cues,Dance,2.451
+98,eP098,phrase,Cue: Dance!,Cues,Dance,1.955
+99,eP099,phrase,Cue: Dance!,Cues,Dance,2.836
+100,eP100,phrase,Cue: Dance!,Cues,Dance,2.907
+101,eP101,phrase,Cue: Dance!,Cues,Dance,2.775
+102,eP102,phrase,Cue: Dance!,Cues,Dance,3.011
+103,eP103,phrase,Cue: Dance!,Cues,Dance,3.732
+104,eP104,phrase,Cue: Dance!,Cues,Dance,4.613
+105,eP105,phrase,Cue: Dance!,Cues,Dance,4.684
+106,eP106,phrase,Cue: Dance!,Cues,Dance,4.447
+107,eP107,phrase,Cue: Dance!,Cues,Dance,4.770
+108,eP108,phrase,Cue: Dance!,Cues,Dance,4.028
+109,eP109,phrase,Cue: Dance!,Cues,Dance,4.909
+110,eP110,phrase,Cue: Dance!,Cues,Dance,4.980
+111,eP111,phrase,Cue: Dance!,Cues,Dance,4.849
+112,eP112,phrase,Cue: Dance!,Cues,Dance,5.085
+113,eP113,phrase,Cue: Dance!,Cues,Dance,1.442
+114,eP114,phrase,Cue: Dance!,Cues,Dance,2.679
+115,eP115,phrase,Cue: Dance!,Cues,Dance,2.750
+116,eP116,phrase,Cue: Dance!,Cues,Dance,2.539
+117,eP117,phrase,Cue: Dance!,Cues,Dance,2.498
+118,eP118,phrase,Cue: Dance!,Cues,Dance,2.139
+119,eP119,phrase,Cue: Dance!,Cues,Dance,3.019
+120,eP120,phrase,Cue: Dance!,Cues,Dance,3.219
+121,eP121,phrase,Cue: Dance!,Cues,Dance,2.853
+122,eP122,phrase,Cue: Dance!,Cues,Dance,3.176
+123,eP123,phrase,Cue: Dance!,Cues,Dance,2.581
+124,eP124,phrase,Cue: Dance!,Cues,Dance,3.422
+125,eP125,phrase,Cue: Dance!,Cues,Dance,3.533
+126,eP126,phrase,Cue: Dance!,Cues,Dance,3.296
+127,eP127,phrase,Cue: Dance!,Cues,Dance,3.619
+128,eP128,phrase,Cue: Dance!,Cues,Dance,1.960
+129,eP129,phrase,Cue: Dance!,Cues,Dance,2.775
+130,eP130,phrase,Cue: Dance!,Cues,Dance,2.846
+131,eP131,phrase,Cue: Dance!,Cues,Dance,2.675
+132,eP132,phrase,Cue: Dance!,Cues,Dance,2.998
+133,eP133,phrase,Cue: Dance!,Cues,Dance,1.960
+134,eP134,phrase,Cue: Dance!,Cues,Dance,2.841
+135,eP135,phrase,Cue: Dance!,Cues,Dance,3.300
+136,eP136,phrase,Cue: Dance!,Cues,Dance,3.136
+137,eP137,phrase,Cue: Dance!,Cues,Dance,3.372
+138,eP138,phrase,Cue: Dance!,Cues,Dance,1.737
+139,eP139,phrase,Cue: Dance!,Cues,Dance,2.834
+140,eP140,phrase,Cue: Dance!,Cues,Dance,2.689
+141,eP141,phrase,Cue: Dance!,Cues,Dance,2.774
+142,eP142,phrase,Cue: Dance!,Cues,Dance,2.793
+143,eP143,phrase,Cue: Dance!,Cues,Dance,2.097
+144,eP144,phrase,Cue: Dance!,Cues,Dance,2.978
+145,eP145,phrase,Cue: Dance!,Cues,Dance,3.049
+146,eP146,phrase,Cue: Dance!,Cues,Dance,2.812
+147,eP147,phrase,Cue: Dance!,Cues,Dance,3.135
+148,eP148,phrase,Cue: Dance!,Cues,Dance,1.981
+149,eP149,phrase,Cue: Dance!,Cues,Dance,2.862
+150,eP150,phrase,Cue: Dance!,Cues,Dance,2.933
+151,eP151,phrase,Cue: Dance!,Cues,Dance,2.656
+152,eP152,phrase,Cue: Dance!,Cues,Dance,3.019
+153,eP153,phrase,Cue: Dance!,Cues,Dance,1.097
+154,eP154,phrase,Cue: Dance!,Cues,Dance,2.810
+155,eP155,phrase,Cue: Dance!,Cues,Dance,2.881
+156,eP156,phrase,Cue: Dance!,Cues,Dance,2.644
+157,eP157,phrase,Cue: Dance!,Cues,Dance,2.967
+158,eP158,phrase,Cue: Dance!,Cues,Dance,2.153
+159,eP159,phrase,Cue: Dance!,Cues,Dance,3.034
+160,eP160,phrase,Cue: Dance!,Cues,Dance,3.105
+161,eP161,phrase,Cue: Dance!,Cues,Dance,2.974
+162,eP162,phrase,Cue: Dance!,Cues,Dance,3.209
+163,eP163,phrase,Cue: Dance!,Cues,Dance,1.925
+164,eP164,phrase,Cue: Dance!,Cues,Dance,2.806
+165,eP165,phrase,Cue: Dance!,Cues,Dance,2.501
+166,eP166,phrase,Cue: Dance!,Cues,Dance,2.264
+167,eP167,phrase,Cue: Dance!,Cues,Dance,2.963
+168,eP168,phrase,Cue: Dance!,Cues,Dance,1.637
+169,eP169,phrase,Cue: Dance!,Cues,Dance,2.458
+170,eP170,phrase,Cue: Dance!,Cues,Dance,2.873
+171,eP171,phrase,Cue: Dance!,Cues,Dance,2.458
+172,eP172,phrase,Cue: Dance!,Cues,Dance,2.694
+173,eP173,phrase,Cue: Dance!,Cues,Dance,2.514
+174,eP174,phrase,Cue: Dance!,Cues,Dance,3.395
+175,eP175,phrase,Cue: Dance!,Cues,Dance,3.466
+176,eP176,phrase,Cue: Dance!,Cues,Dance,2.938
+177,eP177,phrase,Cue: Dance!,Cues,Dance,3.174
+178,eP178,phrase,Cue: Dance!,Cues,Dance,1.850
+179,eP179,phrase,Cue: Dance!,Cues,Dance,3.025
+180,eP180,phrase,Cue: Dance!,Cues,Dance,3.096
+181,eP181,phrase,Cue: Dance!,Cues,Dance,2.819
+182,eP182,phrase,Cue: Dance!,Cues,Dance,2.888
+183,eP183,phrase,Cue: Spin!,Cues,Spin,2.757
+184,eP184,phrase,Cue: Spin!,Cues,Spin,2.360
+185,eP185,phrase,Cue: Dance!,Cues,Dance,1.974
+186,eP186,phrase,Cue: Dance!,Cues,Dance,2.855
+187,eP187,phrase,Cue: Dance!,Cues,Dance,3.288
+188,eP188,phrase,Cue: Dance!,Cues,Dance,2.678
+189,eP189,phrase,Cue: Dance!,Cues,Dance,3.031
+190,eP190,phrase,Cue: Dance!,Cues,Dance,2.254
+191,eP191,phrase,Cue: Dance!,Cues,Dance,3.135
+192,eP192,phrase,Cue: Dance!,Cues,Dance,3.420
+193,eP193,phrase,Cue: Dance!,Cues,Dance,2.958
+194,eP194,phrase,Cue: Dance!,Cues,Dance,3.311
+195,eP195,phrase,Cue: Dance!,Cues,Dance,1.918
+196,eP196,phrase,Cue: Dance!,Cues,Dance,2.799
+197,eP197,phrase,Cue: Dance!,Cues,Dance,3.812
+198,eP198,phrase,Cue: Dance!,Cues,Dance,2.622
+199,eP199,phrase,Cue: Dance!,Cues,Dance,2.975
+200,eP200,phrase,Cue: Spin!,Cues,Spin,1.494
+201,eP201,phrase,Cue: Spin!,Cues,Spin,1.903
+202,eP202,phrase,Cue: Curtsy!,Cues,Curtsy,1.677
+203,eP203,phrase,Cue: Curtsy!,Cues,Curtsy,1.266
+204,eP204,phrase,Cue: Step forward!,Cues,Step forward,1.209
+205,eP205,phrase,Cue: Step forward!,Cues,Step forward,1.943
+206,eP206,phrase,Cue: Step forward!,Cues,Step forward,2.161
+207,eP207,phrase,Cue: Step forward!,Cues,Step forward,1.913
+208,eP208,phrase,Cue: Step forward!,Cues,Step forward,2.236
+209,eP209,phrase,Cue: Step back!,Cues,Step back,1.046
+210,eP210,phrase,Cue: Step back!,Cues,Step back,1.877
+211,eP211,phrase,Cue: Step back!,Cues,Step back,1.998
+212,eP212,phrase,Cue: Step back!,Cues,Step back,1.750
+213,eP213,phrase,Cue: Step back!,Cues,Step back,2.013
+214,eP214,phrase,Cue: Turn!,Cues,Turn,1.364
+215,eP215,phrase,Cue: Turn!,Cues,Turn,2.245
+216,eP216,phrase,Cue: Turn!,Cues,Turn,2.316
+217,eP217,phrase,Cue: Turn!,Cues,Turn,2.068
+218,eP218,phrase,Cue: Turn!,Cues,Turn,2.470
+219,eP219,phrase,Cue: Turn!,Cues,Turn,1.586
+220,eP220,phrase,Cue: Turn!,Cues,Turn,2.467
+221,eP221,phrase,Cue: Turn!,Cues,Turn,2.538
+222,eP222,phrase,Cue: Turn!,Cues,Turn,2.290
+223,eP223,phrase,Cue: Turn!,Cues,Turn,2.700
+224,eP224,phrase,Cue: Step forward!,Cues,Step forward,1.399
+225,eP225,phrase,Cue: Turn!,Cues,Turn,2.348
+226,eP226,phrase,Cue: Turn!,Cues,Turn,2.318
+227,eP227,phrase,Cue: Arms up!,Cues,Arms up,2.519
+228,eP228,phrase,Cue: Arms up!,Cues,Arms up,3.063
+229,eP229,phrase,Cue: Arms up!,Cues,Arms up,3.310
+230,eP230,phrase,Cue: Arms up!,Cues,Arms up,2.835
+231,eP231,phrase,Cue: Arms up!,Cues,Arms up,3.147
+232,eP232,phrase,Cue: Dance!,Cues,Dance,1.693
+233,eP233,phrase,Cue: Dance!,Cues,Dance,2.534
+234,eP234,phrase,Cue: Dance!,Cues,Dance,2.357
+235,eP235,phrase,Cue: Dance!,Cues,Dance,1.788
+236,eP236,phrase,Cue: Dance!,Cues,Dance,2.075
+237,eP237,phrase,Cue: Dance!,Cues,Dance,2.494
+238,eP238,phrase,Cue: Dance!,Cues,Dance,2.904
+239,eP239,phrase,Cue: Dance!,Cues,Dance,1.347
+240,eP240,phrase,Cue: Dance!,Cues,Dance,1.225
+241,eP241,phrase,Cue: Dance!,Cues,Dance,1.342
+242,eP242,phrase,Cue: Dance!,Cues,Dance,3.697
+243,eP243,phrase,Cue: Dance!,Cues,Dance,1.991
+244,eP244,phrase,Cue: Connect!,Cues,Connect,0.692
+245,eP245,phrase,Yay! Great job!,Praise,,2.238
+246,eP246,phrase,Yay! Great job!,Praise,,2.146
+247,eP247,phrase,Yay! Great job!,Praise,,1.895
+248,eP248,phrase,Yay! Great job!,Praise,,1.676
+249,eP249,phrase,Yay! Great job!,Praise,,2.725
+250,eP250,phrase,Yay! Great job!,Praise,,2.508
+251,eP251,song,Tale As Old As Time A,Songs,,2.136
+252,eP252,song,Be Our Guest A,Songs,,4.715
+253,eP253,song,Tale As Old As Time B,Songs,,5.647
+254,eP254,song,Be Our Guest B,Songs,,4.984
+255,eP255,song,Something There A,Songs,,4.687
+256,eP256,song,Something There B,Songs,,2.620
+257,eP257,song,The Rose Waltz,Songs,,5.009
+258,eP258,song,Fairytale Allegro,Songs,,5.932
+259,eP259,song,The Fleur-de-lis,Songs,,6.438
+260,eP260,song,The Beastly Bourrée,Songs,,2.334
+261,eP261,phrase,Dance with me!,Dances,,1.069
+262,eP262,phrase,Dance with me!,Dances,,1.868
+263,eP263,phrase,Dance with me!,Dances,,2.735
+264,eP264,phrase,Dance with me!,Dances,,2.176
+265,eP265,phrase,Dance with me!,Dances,,2.835
+266,eP266,phrase,Dance with me!,Dances,,2.986
+267,eP267,phrase,Dance with me!,Dances,,3.821
+268,eP268,phrase,Dance break,Dances,,2.593
+269,eP269,phrase,Dance break,Dances,,3.468
+270,eP270,phrase,Pick me up!,Chatter,,2.315
+271,eP271,phrase,Pick me up!,Chatter,,3.163
+272,eP272,phrase,Belle says something,Belle talks,,2.494
+273,eP273,phrase,Pick me up!,Chatter,,2.167
+274,eP274,phrase,Pick me up!,Chatter,,1.707
+275,eP275,phrase,Belle says something,Belle talks,,2.951
+276,eP276,phrase,Hello!,Greetings,,1.538
+277,eP277,phrase,Button press,Chatter,,0.617
+278,eP278,phrase,Goodnight,Sleepy,,1.535
+279,eP279,phrase,Dance routine,Dances,,20.794
+280,eP280,phrase,Dance routine,Dances,,16.788
+281,eP281,phrase,Dance routine,Dances,,22.866
+282,eP282,phrase,Dance routine,Dances,,23.110
+283,eP283,phrase,Dance routine,Dances,,14.756
+284,eP284,phrase,Dance routine,Dances,,14.981
+285,eP285,phrase,Dance routine,Dances,,17.542
+286,eP286,phrase,Dance routine,Dances,,17.566
+287,eP287,phrase,Dance routine,Dances,,17.455
+288,eP288,phrase,Dance routine,Dances,,16.515
+300,eP300,phrase,Belle sound,Belle talks,,7.022
+301,eP301,phrase,Belle sound,Belle talks,,4.830
+302,eP302,phrase,Belle sound,Belle talks,,7.281
+303,eP303,phrase,Belle says something,Belle talks,,0.935
+304,eP304,phrase,Belle says something,Belle talks,,1.665
+305,eP305,phrase,Belle says something,Belle talks,,1.895
+306,eP306,phrase,Belle says something,Belle talks,,2.657
+307,eP307,phrase,Belle says something,Belle talks,,1.676
+308,eP308,phrase,Belle says something,Belle talks,,1.221
+309,eP309,phrase,Belle says something,Belle talks,,1.664
+310,eP310,phrase,Belle says something,Belle talks,,2.504
+311,eP311,phrase,Belle says something,Belle talks,,1.997
+312,eP312,phrase,Belle says something,Belle talks,,1.488
+313,eP313,phrase,Let's perform!,Perform,,2.478
+314,eP314,phrase,Let's perform!,Perform,,4.748
+315,eP315,phrase,Let's perform!,Perform,,3.492
+316,eP316,phrase,Belle says something,Belle talks,,4.589
+317,eP317,phrase,Let's perform!,Perform,,5.087
+318,eP318,phrase,Cue: Dance!,Cues,Dance,1.324
+319,eP319,phrase,Cue: Dance!,Cues,Dance,1.069
+320,eP320,phrase,Cue: Dance!,Cues,Dance,1.337
+321,eP321,phrase,Cue: Dance!,Cues,Dance,2.643
+322,eP322,phrase,Cue: Dance!,Cues,Dance,2.449
+323,eP323,phrase,Cue: Dance!,Cues,Dance,1.252
+324,eP324,phrase,Cue: Dance!,Cues,Dance,0.947
+325,eP325,phrase,Cue: Dance!,Cues,Dance,1.240
+326,eP326,phrase,Cue: Dance!,Cues,Dance,1.452
+327,eP327,phrase,Cue: Dance!,Cues,Dance,1.266
+328,eP328,phrase,Cue: Dance!,Cues,Dance,1.451
+329,eP329,phrase,Cue: Dance!,Cues,Dance,1.704
+330,eP330,phrase,Cue: Spin!,Cues,Spin,1.315
+331,eP331,phrase,Cue: Spin!,Cues,Spin,1.460
+332,eP332,phrase,Cue: Spin!,Cues,Spin,1.439
+333,eP333,phrase,Cue: Spin!,Cues,Spin,1.665
+334,eP334,phrase,Cue: Step forward!,Cues,Step forward,1.373
+335,eP335,phrase,Cue: Turn!,Cues,Turn,1.659
+336,eP336,phrase,Cue: Turn!,Cues,Turn,1.629
+337,eP337,phrase,Cue: Dance!,Cues,Dance,1.123
+338,eP338,phrase,Belle chatter,Chatter,,4.768
+339,eP339,phrase,Belle says something,Belle talks,,4.564
+340,eP340,phrase,Belle chatter,Chatter,,4.670
+341,eP341,phrase,Belle chatter,Chatter,,6.832
+342,eP342,phrase,Belle says something,Belle talks,,5.636
+700,eP700,phrase,Belle says something,Belle talks,,3.218
+701,eP701,phrase,Belle says something,Belle talks,,3.389
+702,eP702,phrase,Belle says something,Belle talks,,3.744
+703,eP703,phrase,Belle says something,Belle talks,,4.365
+704,eP704,phrase,Belle says something,Belle talks,,1.725
+705,eP705,phrase,Belle says something,Belle talks,,3.727
+706,eP706,phrase,Belle says something,Belle talks,,3.387
+707,eP707,phrase,Belle says something,Belle talks,,3.493
+708,eP708,phrase,Belle says something,Belle talks,,3.593
+709,eP709,phrase,Belle says something,Belle talks,,5.738
+710,eP710,phrase,Belle says something,Belle talks,,1.840
+711,eP711,phrase,Belle says something,Belle talks,,2.522
+712,eP712,phrase,Belle says something,Belle talks,,3.287
+713,eP713,phrase,Belle says something,Belle talks,,1.361
+714,eP714,phrase,Belle says something,Belle talks,,2.061
+715,eP715,phrase,Belle says something,Belle talks,,1.784
+716,eP716,phrase,Belle says something,Belle talks,,1.901
+717,eP717,phrase,Belle says something,Belle talks,,0.972
+718,eP718,phrase,Belle says something,Belle talks,,1.412
+719,eP719,phrase,Belle says something,Belle talks,,1.337
+720,eP720,phrase,Belle says something,Belle talks,,1.280
+721,eP721,phrase,Belle says something,Belle talks,,1.892
+722,eP722,phrase,Belle says something,Belle talks,,5.223
+723,eP723,phrase,Belle says something,Belle talks,,1.549
+724,eP724,phrase,Belle says something,Belle talks,,2.047
+725,eP725,phrase,Belle says something,Belle talks,,1.415
+726,eP726,phrase,Belle says something,Belle talks,,4.604
+727,eP727,phrase,Belle says something,Belle talks,,2.058
+728,eP728,phrase,Belle says something,Belle talks,,2.451
+729,eP729,phrase,Belle says something,Belle talks,,2.080
+730,eP730,phrase,Belle says something,Belle talks,,2.463
+731,eP731,phrase,Belle says something,Belle talks,,2.620
+732,eP732,phrase,Belle says something,Belle talks,,2.591
+733,eP733,phrase,Belle says something,Belle talks,,4.169
+734,eP734,phrase,Belle says something,Belle talks,,2.824
+735,eP735,phrase,Belle says something,Belle talks,,2.307
+736,eP736,phrase,Belle says something,Belle talks,,1.667
+737,eP737,phrase,Belle says something,Belle talks,,1.623
+738,eP738,phrase,Belle says something,Belle talks,,2.913
+739,eP739,phrase,Belle says something,Belle talks,,2.779
+740,eP740,phrase,Belle says something,Belle talks,,2.724
+741,eP741,phrase,Belle says something,Belle talks,,3.590
+742,eP742,phrase,Belle says something,Belle talks,,3.476
+743,eP743,phrase,Belle says something,Belle talks,,3.629
+744,eP744,phrase,Belle says something,Belle talks,,3.853
+745,eP745,phrase,Belle says something,Belle talks,,3.565
+746,eP746,phrase,Belle says something,Belle talks,,3.531
+747,eP747,phrase,Belle says something,Belle talks,,2.579
+748,eP748,phrase,Belle says something,Belle talks,,3.812
+749,eP749,phrase,Belle says something,Belle talks,,2.304
+750,eP750,phrase,Belle says something,Belle talks,,2.584
+751,eP751,phrase,Belle says something,Belle talks,,4.070
+752,eP752,phrase,Belle says something,Belle talks,,2.059
+753,eP753,phrase,Belle says something,Belle talks,,3.111
+754,eP754,phrase,Belle says something,Belle talks,,3.649
+755,eP755,phrase,Belle says something,Belle talks,,4.180
+756,eP756,phrase,Belle says something,Belle talks,,4.175
+757,eP757,phrase,Belle says something,Belle talks,,4.686
+758,eP758,phrase,Belle says something,Belle talks,,4.905
+759,eP759,phrase,Belle says something,Belle talks,,1.898
+760,eP760,phrase,Belle says something,Belle talks,,1.668
+761,eP761,phrase,Belle says something,Belle talks,,1.872
+762,eP762,phrase,Belle says something,Belle talks,,2.857
+763,eP763,phrase,Belle says something,Belle talks,,2.399
+764,eP764,phrase,Belle says something,Belle talks,,2.993
+765,eP765,phrase,Belle says something,Belle talks,,2.797
+766,eP766,phrase,Belle says something,Belle talks,,2.826
+767,eP767,phrase,Belle says something,Belle talks,,2.364
+768,eP768,phrase,Belle says something,Belle talks,,2.557
+769,eP769,phrase,Belle says something,Belle talks,,2.802
+770,eP770,phrase,Belle says something,Belle talks,,3.020
+771,eP771,phrase,Belle says something,Belle talks,,2.877
+772,eP772,phrase,Belle says something,Belle talks,,2.731
+773,eP773,phrase,Belle says something,Belle talks,,2.197
+774,eP774,phrase,Belle says something,Belle talks,,2.980
+775,eP775,phrase,Belle says something,Belle talks,,2.519
+776,eP776,phrase,Belle says something,Belle talks,,2.067
+777,eP777,phrase,Belle says something,Belle talks,,2.292
+778,eP778,phrase,Belle says something,Belle talks,,3.063
+779,eP779,phrase,Belle says something,Belle talks,,2.308
+780,eP780,phrase,Belle says something,Belle talks,,1.964
+781,eP781,phrase,Belle says something,Belle talks,,2.309
+782,eP782,phrase,Belle says something,Belle talks,,2.725
+783,eP783,phrase,Belle says something,Belle talks,,2.249
+784,eP784,phrase,Belle says something,Belle talks,,3.148
+785,eP785,phrase,Belle says something,Belle talks,,2.126
+786,eP786,phrase,Belle says something,Belle talks,,2.799
+787,eP787,phrase,Belle says something,Belle talks,,3.557
+788,eP788,phrase,Belle says something,Belle talks,,2.621
+789,eP789,phrase,Belle says something,Belle talks,,2.570
+790,eP790,phrase,Belle says something,Belle talks,,3.511
+791,eP791,phrase,Belle says something,Belle talks,,2.075
+792,eP792,phrase,Belle says something,Belle talks,,1.914
+793,eP793,phrase,Belle says something,Belle talks,,3.436
+794,eP794,phrase,Belle says something,Belle talks,,1.951
+795,eP795,phrase,Belle says something,Belle talks,,3.675
+796,eP796,phrase,Belle says something,Belle talks,,4.583
+797,eP797,phrase,Belle says something,Belle talks,,2.164
+798,eP798,phrase,Belle says something,Belle talks,,1.815
+799,eP799,phrase,Belle says something,Belle talks,,1.686
+800,eP800,phrase,Belle says something,Belle talks,,1.341
+801,eP801,phrase,Belle says something,Belle talks,,2.708
+802,eP802,phrase,Belle says something,Belle talks,,3.483

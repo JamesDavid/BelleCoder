@@ -1,0 +1,9 @@
+# Normalize line endings
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.csv text
+
+# Vendored / generated reverse-engineering artifacts (not our code; excluded from language stats)
+re/decompiled/** linguist-vendored
+data/*.csv linguist-generated
