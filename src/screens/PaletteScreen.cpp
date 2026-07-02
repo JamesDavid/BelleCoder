@@ -79,8 +79,9 @@ void PaletteScreen::onTap(int x, int y) {
   MoveId ms[MOVE_COUNT]; int mc = movesInCat(catAt(_cat), ms);
   for (int i=0;i<mc;i++) if (tileRect(i).hit(x,y)) {
     const MoveInfo& mi = moveInfo(ms[i]);
-    if (mi.hasParam) {
-      // route parameterised moves through the editor's stepper to set the value first
+    if (ms[i] == REPEAT) {
+      editorScreen.beginRepeat();            // loop the selected step, don't insert a step
+    } else if (mi.hasParam) {
       editorScreen.beginNewParam(ms[i], mi.pDef);
     } else {
       editorScreen.insertMove(ms[i], 0);

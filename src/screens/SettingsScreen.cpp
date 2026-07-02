@@ -37,14 +37,14 @@ void SettingsScreen::enter() {
 
   // Capture-only rows: shown ONLY when an IMU is present (SPEC §9)
   if (S.imuPresent) {
-    canvas.card(10,136,SCREEN_W-20,40,Theme::CARD);
+    canvas.card(10,128,SCREEN_W-20,34,Theme::CARD);
     char sv[28]; snprintf(sv,sizeof sv,"Sensitivity  %d", S.sensitivity);
-    canvas.text(sv, 20, 150, Theme::TEXT, 1, Align::L);
-    canvas.button(SCREEN_W-96,140,32,32,"-",Theme::BG_ALT,Theme::GOLD);
-    canvas.button(SCREEN_W-52,140,32,32,"+",Theme::BG_ALT,Theme::GOLD);
-    // info (compact)
-    char l2[40]; snprintf(l2,sizeof l2,"IMU: %s   BLE: %s", S.imuLabel, pal::simulated()?"SIM":"linked");
-    canvas.text(l2, 12, 182, Theme::TEXT_DIM, 1, Align::L);
+    canvas.text(sv, 20, 140, Theme::TEXT, 1, Align::L);
+    canvas.button(SCREEN_W-96,130,32,30,"-",Theme::BG_ALT,Theme::GOLD);
+    canvas.button(SCREEN_W-52,130,32,30,"+",Theme::BG_ALT,Theme::GOLD);
+    canvas.card(10,166,SCREEN_W-20,34,Theme::CARD);
+    canvas.text("Bounce", 20, 178, Theme::TEXT, 1, Align::L);
+    canvas.button(SCREEN_W-116,168,108,30, S.bounceToArms?"-> Arms":"-> Step", Theme::BG_ALT, Theme::GOLD);
   } else {
     canvas.fillRound(10,136,SCREEN_W-20,58,6,Theme::BG_ALT);
     char l1[40]; snprintf(l1,sizeof l1,"BLE: %s", pal::simulated()?"SIMULATE":"linked");
@@ -65,7 +65,8 @@ void SettingsScreen::onTap(int x, int y) {
   if (gapMinus().hit(x,y)) { S.globalGapMs = max(0, S.globalGapMs-50); enter(); return; }
   if (gapPlus().hit(x,y))  { S.globalGapMs = min(1000, S.globalGapMs+50); enter(); return; }
   if (S.imuPresent) {
-    if (Rect{SCREEN_W-96,140,32,32}.hit(x,y)) { S.sensitivity = max(1, S.sensitivity-1); enter(); return; }
-    if (Rect{SCREEN_W-52,140,32,32}.hit(x,y)) { S.sensitivity = min(10, S.sensitivity+1); enter(); return; }
+    if (Rect{SCREEN_W-96,130,32,30}.hit(x,y)) { S.sensitivity = max(1, S.sensitivity-1); enter(); return; }
+    if (Rect{SCREEN_W-52,130,32,30}.hit(x,y)) { S.sensitivity = min(10, S.sensitivity+1); enter(); return; }
+    if (Rect{SCREEN_W-116,168,108,30}.hit(x,y)) { S.bounceToArms = !S.bounceToArms; enter(); return; }
   }
 }

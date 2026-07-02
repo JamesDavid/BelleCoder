@@ -12,19 +12,13 @@ static Rect btnPlay() { return { 20,  SCREEN_H-46, 84, 38 }; }
 static Rect btnPause(){ return { 118, SCREEN_H-46, 84, 38 }; }
 static Rect btnStop() { return { 216, SCREEN_H-46, 84, 38 }; }
 
-// Expand REPEAT groups (repeatGrp spans) into a flat execution list (SPEC §8).
+// Expand per-step REPEAT loops (repeatGrp = loop count, >=2) into a flat execution list (SPEC §8).
 void RunScreen::buildFlat() {
   auto& seq = app.st.scratch;
   _nFlat = 0;
-  for (int i = 0; i < seq.count && _nFlat < 128; ) {
-    uint8_t grp = seq.steps[i].repeatGrp;
-    if (grp == 0) { _flat[_nFlat++] = i; i++; continue; }
-    // gather the span sharing this group id
-    int j = i; while (j < seq.count && seq.steps[j].repeatGrp == grp) j++;
-    int reps = 2;  // default; a REPEAT marker can override in M7
-    for (int r = 0; r < reps; r++)
-      for (int k = i; k < j && _nFlat < 128; k++) _flat[_nFlat++] = k;
-    i = j;
+  for (int i = 0; i < seq.count && _nFlat < 128; i++) {
+    int reps = (seq.steps[i].repeatGrp >= 2) ? seq.steps[i].repeatGrp : 1;
+    for (int r = 0; r < reps && _nFlat < 128; r++) _flat[_nFlat++] = i;
   }
 }
 
@@ -44,7 +38,14 @@ void RunScreen::drawStatus() {
   char p[40];
   int shown = (_pos < _nFlat) ? _pos+1 : _nFlat;
   snprintf(p, sizeof p, "Step %d of %d", (_st==St::Idle)?0:shown, _nFlat);
-  canvas.text(p, SCREEN_W/2, 38, Theme::TEXT, 2, Align::C);
+  canvas.text(p, SCREEN_W/2, 34, Theme::TEXT, 2, Align::C);
+  // progress bar (run-step sync)
+  int bw = SCREEN_W-60, bx=30, by=56;
+  canvas.round(bx, by, bw, 6, 3, Theme::OUTLINE);
+  if (_nFlat>0 && _st!=St::Idle) {
+    int fillw = (int)((long)bw * (_pos + (_st==St::Done?1:0)) / _nFlat);
+    canvas.fillRound(bx, by, fillw<2?2:fillw, 6, 3, Theme::GREEN);
+  }
 
   // current move card
   const char* label = "ready";

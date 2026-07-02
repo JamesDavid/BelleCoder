@@ -14,6 +14,8 @@ public:
   void beginNewParam(MoveId m, int16_t initial);
   // Called by the palette: a param-less move was picked; insert it directly.
   void insertMove(MoveId m, int16_t p1);
+  // Called by the palette: REPEAT wraps the selected step in a loop (SPEC §5 control block).
+  void beginRepeat();
 
 private:
   enum class Mode { List, Stepper };
@@ -23,6 +25,7 @@ private:
   MoveId  _sMove = STEP_FORWARD;
   int16_t _sVal  = 0;
   bool    _sNew  = false;      // true = inserting new; false = editing existing at _sIdx
+  bool    _sRepeat = false;    // stepper is setting a REPEAT count on the selected step
   int     _sIdx  = 0;
 
   int _scroll = 0;

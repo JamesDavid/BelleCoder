@@ -39,6 +39,11 @@ static void stepLabel(const Step& s, char* out, int n) {
   } else {
     snprintf(out, n, "%s", mi.label);
   }
+  // show a loop badge inline when this step repeats (SPEC §5 REPEAT)
+  if (s.repeatGrp >= 2) {
+    int len = strlen(out);
+    snprintf(out+len, n-len, "  (x%d)", s.repeatGrp);
+  }
 }
 
 void EditorScreen::drawList() {
@@ -58,8 +63,7 @@ void EditorScreen::drawList() {
     canvas.moveGlyph(s.move, 22, y+ROWH/2, 8, catColor(catOf(s.move)));
     char line[40], body[32]; stepLabel(s, body, sizeof body);
     snprintf(line, sizeof line, "%2d. %s", i+1, body);
-    canvas.text(line, 40, y+ROWH/2-4, Theme::TEXT, 1, Align::L);
-    if (s.repeatGrp) canvas.text("R", SCREEN_W-18, y+ROWH/2-4, Theme::GOLD, 1, Align::L);
+    canvas.text(line, 40, y+ROWH/2-4, s.repeatGrp>=2?Theme::GOLD:Theme::TEXT, 1, Align::L);
   }
   // scroll hint
   if (seq.count > VIS) {
@@ -87,14 +91,16 @@ void EditorScreen::enter() {
 void EditorScreen::drawStepper() {
   canvas.clear(Theme::BG);
   const MoveInfo& mi = moveInfo(_sMove);
-  canvas.title(_sNew ? "Add Move" : "Edit Move");
-  // move glyph + name
-  canvas.moveGlyph(_sMove, 40, 62, 18, catColor(catOf(_sMove)));
-  canvas.text(mi.label, SCREEN_W/2+10, 50, Theme::GOLD, 2, Align::C);
+  canvas.title(_sRepeat ? "Repeat Move" : _sNew ? "Add Move" : "Edit Move");
+  // for repeat, glyph/label reflect the step being looped
+  MoveId shown = _sRepeat ? app.st.scratch.steps[app.st.sel].move : _sMove;
+  canvas.moveGlyph(shown, 40, 62, 18, catColor(catOf(shown)));
+  canvas.text(_sRepeat ? moveInfo(shown).label : mi.label, SCREEN_W/2+10, 50, Theme::GOLD, 2, Align::C);
 
-  // value display (name for song/dance/phrase)
+  // value display (name for song/dance/phrase; "x N" for repeat)
   char val[28];
-  if (_sMove==PLAY_SONG || _sMove==PLAY_DANCE || _sMove==PLAY_PHRASE)
+  if (_sRepeat)                                                snprintf(val, sizeof val, "loop x%d", _sVal);
+  else if (_sMove==PLAY_SONG || _sMove==PLAY_DANCE || _sMove==PLAY_PHRASE)
     catalog::label(_sMove, _sVal, val, sizeof val);
   else snprintf(val, sizeof val, "%d %s", _sVal, mi.pUnit);
   canvas.fillRound(90, 122, SCREEN_W-180, 56, 8, Theme::CARD);
@@ -109,7 +115,14 @@ void EditorScreen::drawStepper() {
 }
 
 void EditorScreen::beginNewParam(MoveId m, int16_t initial) {
-  _mode = Mode::Stepper; _sNew = true; _sMove = m; _sVal = initial;
+  _mode = Mode::Stepper; _sNew = true; _sRepeat = false; _sMove = m; _sVal = initial;
+}
+
+void EditorScreen::beginRepeat() {
+  if (app.st.scratch.empty()) { _mode = Mode::List; return; }   // nothing to loop
+  _mode = Mode::Stepper; _sRepeat = true; _sNew = false; _sMove = REPEAT;
+  int cur = app.st.scratch.steps[app.st.sel].repeatGrp;
+  _sVal = (cur >= 2) ? cur : 2;
 }
 
 void EditorScreen::insertMove(MoveId m, int16_t p1) {
@@ -130,6 +143,10 @@ void EditorScreen::openStepperFor(int idx) {
 
 void EditorScreen::commitStepper() {
   auto& seq = app.st.scratch;
+  if (_sRepeat) {
+    seq.steps[app.st.sel].repeatGrp = (uint8_t)(_sVal <= 1 ? 0 : _sVal);  // loop the selected step
+    _mode = Mode::List; _sRepeat = false; return;
+  }
   if (_sNew) {
     int at = seq.empty() ? 0 : app.st.sel + 1;
     Step s{ _sMove, _sVal, 0 };
