@@ -6,6 +6,7 @@
 #include "pal/pal.h"
 #include "services/Storage.h"
 #include "services/Ble.h"
+#include "imu/Imu.h"
 #include "debug/SerialConsole.h"
 
 #include "screens/HomeScreen.h"
@@ -26,6 +27,11 @@ void setup() {
   storage::begin();
   ble::begin();
   pal::begin();
+
+  // Optional IMU: probe I2C, verify chip-ID; gate the capture feature on the result (SPEC §9).
+  imu::detect();
+  if (imu::begin()) { app.st.imuPresent = true;  strncpy(app.st.imuLabel, imu::label(), sizeof app.st.imuLabel-1); }
+  else              { app.st.imuPresent = false; strncpy(app.st.imuLabel, "none", sizeof app.st.imuLabel-1); }
 
   app.registerScreen(ScreenId::Home,     &homeScreen);
   app.registerScreen(ScreenId::Editor,   &editorScreen);

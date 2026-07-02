@@ -14,6 +14,8 @@ struct AppState {
   bool     imuPresent = false;   // set at boot (M5)
   char     imuLabel[24] = "none";
   int      globalGapMs = 150;    // inter-step gap (SPEC §8)
+  int      sensitivity = 5;      // capture sensitivity 1..10 (M6)
+  bool     bounceToArms = true;  // map a bounce to arms (true) or a step (false)
 };
 
 class App {

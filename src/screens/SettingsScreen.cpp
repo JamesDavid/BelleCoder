@@ -35,13 +35,23 @@ void SettingsScreen::enter() {
   canvas.button(mm.x,mm.y,mm.w,mm.h,"-",Theme::BG_ALT,Theme::TEXT);
   canvas.button(pp.x,pp.y,pp.w,pp.h,"+",Theme::BG_ALT,Theme::TEXT);
 
-  // Info
-  canvas.fillRound(10,136,SCREEN_W-20,58,6,Theme::BG_ALT);
-  char l1[40]; snprintf(l1,sizeof l1,"BLE: %s", pal::simulated()?"SIMULATE":"linked");
-  char l2[40]; snprintf(l2,sizeof l2,"IMU: %s", S.imuPresent?S.imuLabel:"none");
-  canvas.text(l1, 20, 144, Theme::TEXT_DIM, 1, Align::L);
-  canvas.text(l2, 20, 162, Theme::TEXT_DIM, 1, Align::L);
-  canvas.text("BelleCoder " BELLE_FW_VERSION "  " BOARD_NAME, 20, 180, Theme::TEXT_DIM, 1, Align::L);
+  // Capture-only rows: shown ONLY when an IMU is present (SPEC §9)
+  if (S.imuPresent) {
+    canvas.card(10,136,SCREEN_W-20,40,Theme::CARD);
+    char sv[28]; snprintf(sv,sizeof sv,"Sensitivity  %d", S.sensitivity);
+    canvas.text(sv, 20, 150, Theme::TEXT, 1, Align::L);
+    canvas.button(SCREEN_W-96,140,32,32,"-",Theme::BG_ALT,Theme::GOLD);
+    canvas.button(SCREEN_W-52,140,32,32,"+",Theme::BG_ALT,Theme::GOLD);
+    // info (compact)
+    char l2[40]; snprintf(l2,sizeof l2,"IMU: %s   BLE: %s", S.imuLabel, pal::simulated()?"SIM":"linked");
+    canvas.text(l2, 12, 182, Theme::TEXT_DIM, 1, Align::L);
+  } else {
+    canvas.fillRound(10,136,SCREEN_W-20,58,6,Theme::BG_ALT);
+    char l1[40]; snprintf(l1,sizeof l1,"BLE: %s", pal::simulated()?"SIMULATE":"linked");
+    canvas.text(l1, 20, 144, Theme::TEXT_DIM, 1, Align::L);
+    canvas.text("IMU: none (capture hidden)", 20, 162, Theme::TEXT_DIM, 1, Align::L);
+    canvas.text("BelleCoder " BELLE_FW_VERSION, 20, 180, Theme::TEXT_DIM, 1, Align::L);
+  }
 
   nav::drawBack();
 }
@@ -54,4 +64,8 @@ void SettingsScreen::onTap(int x, int y) {
   if (Rect{t.x+t.w-76, t.y+5,70,30}.hit(x,y)) { S.tier=Tier::Advanced; enter(); return; }
   if (gapMinus().hit(x,y)) { S.globalGapMs = max(0, S.globalGapMs-50); enter(); return; }
   if (gapPlus().hit(x,y))  { S.globalGapMs = min(1000, S.globalGapMs+50); enter(); return; }
+  if (S.imuPresent) {
+    if (Rect{SCREEN_W-96,140,32,32}.hit(x,y)) { S.sensitivity = max(1, S.sensitivity-1); enter(); return; }
+    if (Rect{SCREEN_W-52,140,32,32}.hit(x,y)) { S.sensitivity = min(10, S.sensitivity+1); enter(); return; }
+  }
 }

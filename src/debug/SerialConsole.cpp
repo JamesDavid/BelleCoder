@@ -2,6 +2,7 @@
 #include "../hal/Display.h"
 #include "../hal/Touch.h"
 #include "../core/App.h"
+#include "../imu/Imu.h"
 #include <Arduino.h>
 #include <string.h>
 #include <stdlib.h>
@@ -54,9 +55,24 @@ void SerialConsole::handle(char* line) {
       break;
     }
     case 'I': case 'i':
-      Serial.printf("[info] screen=%d heap=%u fw=%s board=%s\n",
-                    (int)app.current(), (unsigned)ESP.getFreeHeap(), BELLE_FW_VERSION, BOARD_NAME);
+      Serial.printf("[info] screen=%d heap=%u imu=%s fw=%s board=%s\n",
+                    (int)app.current(), (unsigned)ESP.getFreeHeap(), app.st.imuLabel,
+                    BELLE_FW_VERSION, BOARD_NAME);
       break;
+    case 'A': case 'a': {                 // stream accel/gyro for a serial plot (M5)
+      ImuSample s; Serial.println("ax ay az gx gy gz");
+      for (int i=0;i<120;i++){ if (imu::read(s)) Serial.printf("%.3f %.3f %.3f %.2f %.2f %.2f\n",
+                               s.ax,s.ay,s.az,s.gx,s.gy,s.gz); delay(10); }
+      break;
+    }
+    case 'F': case 'f': {                 // toggle a synthetic IMU so the capture UI is demoable
+      bool on = !imu::isSynthetic();
+      imu::forceSynthetic(on);
+      app.st.imuPresent = on; strncpy(app.st.imuLabel, imu::label(), sizeof app.st.imuLabel-1);
+      Serial.printf("[imu] synthetic %s\n", on?"ON":"OFF");
+      app.repaint();
+      break;
+    }
     default:
       Serial.printf("[console] ? %c\n", op);
   }
