@@ -4,6 +4,7 @@
 #include "../core/Theme.h"
 #include "../core/Hit.h"
 #include "../core/Nav.h"
+#include "EditorScreen.h"
 #include <Arduino.h>
 
 PaletteScreen paletteScreen;
@@ -78,11 +79,13 @@ void PaletteScreen::onTap(int x, int y) {
   MoveId ms[MOVE_COUNT]; int mc = movesInCat(catAt(_cat), ms);
   for (int i=0;i<mc;i++) if (tileRect(i).hit(x,y)) {
     const MoveInfo& mi = moveInfo(ms[i]);
-    Step s{ ms[i], mi.pDef, 0 };
-    if (app.st.scratch.insertAt(app.st.sel+ (app.st.scratch.empty()?0:1), s)) {
-      if (!app.st.scratch.empty()) app.st.sel++;
+    if (mi.hasParam) {
+      // route parameterised moves through the editor's stepper to set the value first
+      editorScreen.beginNewParam(ms[i], mi.pDef);
+    } else {
+      editorScreen.insertMove(ms[i], 0);
     }
-    app.go(ScreenId::Editor);   // M1 will route parameterised moves through a stepper first
+    app.go(ScreenId::Editor);
     return;
   }
 }
