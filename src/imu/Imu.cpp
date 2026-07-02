@@ -140,17 +140,23 @@ static bool readRaw(ImuSample& s) {
   }
 }
 
-// synthetic motion for UI/classifier demo without hardware: a slow yaw sweep + gentle bob
-static float g_t = 0;
+// synthetic motion for UI/classifier demo without hardware: a scripted routine of distinct
+// gestures separated by stillness so the segmenter/classifier produce a real captured sequence:
+// spin R -> bounce -> tilt R -> lean fwd -> spin L, looping every 8 s.
 bool read(ImuSample& s) {
   if (g_synth) {
-    g_t += 0.02f;
-    s.ax = 0.05f*sinf(g_t*0.7f);
-    s.ay = 0.05f*cosf(g_t*0.5f);
-    s.az = 1.0f + 0.15f*sinf(g_t*3.0f);      // bob
-    s.gx = 4*sinf(g_t*0.3f);
-    s.gy = 4*cosf(g_t*0.4f);
-    s.gz = 90*sinf(g_t*0.25f);               // yaw sweep (spins)
+    uint32_t t = millis() % 8000;
+    s.ax = s.ay = s.gx = s.gy = s.gz = 0; s.az = 1.0f;
+    if      (t < 1000)              s.gz = 130;                                  // spin R
+    else if (t < 1500)             ;                                            // still
+    else if (t < 2500)              s.az = 1.0f + 0.5f*sinf((t-1500)*0.0314f);  // bounce (~5Hz)
+    else if (t < 3000)             ;                                            // still
+    else if (t < 4000)              s.ay = 0.5f;                                // tilt R -> head
+    else if (t < 4500)             ;                                            // still
+    else if (t < 5500)              s.ax = 0.5f;                                // lean fwd -> step
+    else if (t < 6000)             ;                                            // still
+    else if (t < 7000)              s.gz = -130;                               // spin L
+    // 7000..8000 still
     return true;
   }
   if (!g_begun) return false;
