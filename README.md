@@ -90,12 +90,6 @@ dead button.
 |---|---|---|
 | <img src="docs/img/m5_home_noimu.png" width="320"> | <img src="docs/img/m5_home_imu.png" width="320"> | <img src="docs/img/m7_settings.png" width="320"> |
 
-### The wand (hardware)
-A parametric OpenSCAD enclosure: display head + oval handle sized for small hands, rigid IMU boss,
-LiPo cavity, wrist-strap slot, USB-C charge cutout. See [`hardware/`](hardware/).
-
-<p align="center"><img src="docs/img/m8_wand_preview.png" width="420" alt="Wand enclosure render"></p>
-
 ---
 
 ## More ways to play
@@ -133,6 +127,14 @@ Teal" to any routine); and Belle's own **volume + battery** in Settings.
 
 See [`BACKLOG.md`](BACKLOG.md) for what's next (autonomous queue playback, Freeze Dance, beat tools,
 Perform mode, and the live-doll tuning that unlocks the notify-driven features).
+
+---
+
+## The wand (hardware)
+A parametric OpenSCAD enclosure: display head + oval handle sized for small hands, rigid IMU boss,
+LiPo cavity, wrist-strap slot, USB-C charge cutout. See [`hardware/`](hardware/).
+
+<p align="center"><img src="docs/img/m8_wand_preview.png" width="420" alt="Wand enclosure render"></p>
 
 ---
 
