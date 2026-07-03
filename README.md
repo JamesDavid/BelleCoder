@@ -31,6 +31,9 @@ and streams them when a doll is linked, and runs in a byte-accurate **SIMULATE**
   Works in SIMULATE with no doll present.
 - **One binary, capability-detected** — the IMU is optional and auto-detected on I2C; capture
   features turn on or hide entirely at boot.
+- **A whole Play hub** — Draw-a-Dance (trace a path, Belle drives it), a song jukebox, Live Mirror
+  (wave the wand, she copies you), and Simon Says — plus LED dress-light moves and Belle's own
+  volume/battery. (See *More ways to play* below.)
 
 ---
 
@@ -92,6 +95,44 @@ A parametric OpenSCAD enclosure: display head + oval handle sized for small hand
 LiPo cavity, wrist-strap slot, USB-C charge cutout. See [`hardware/`](hardware/).
 
 <p align="center"><img src="docs/img/m8_wand_preview.png" width="420" alt="Wand enclosure render"></p>
+
+---
+
+## More ways to play
+
+Beyond the tap editor and motion capture, a **Play** hub (from Home) gathers the creative and game
+modes. All are exercisable in SIMULATE.
+
+<p align="center"><img src="docs/img/f_play_menu.png" width="320" alt="Play menu"></p>
+
+### Draw-a-Dance ✏️
+Trace a path on the touchscreen and Belle drives it — the original app's connect-the-dots idea,
+rebuilt on our extracted `{arm, l, r}` model. The polyline is resampled into moves (straight runs →
+Steps, corners → Twirls) and opens in the editor, fully tweakable.
+
+| Trace a path | It becomes an editable dance |
+|---|---|
+| <img src="docs/img/f_draw_trace.png" width="320"> | <img src="docs/img/f_draw_editor.png" width="320"> |
+
+### Live Mirror & Simon Says
+**Live Mirror** — wave the wand and Belle copies you in near-real-time (spin → she spins).
+**Simon Says** — Belle demonstrates a growing sequence of moves; repeat it by tapping the tiles
+(or, on a linked doll, driven by her necklace button).
+
+| Live Mirror | Simon Says |
+|---|---|
+| <img src="docs/img/f_mirror.png" width="320"> | <img src="docs/img/f_simon.png" width="320"> |
+
+### Dance-Along, LED lights & Belle's controls
+A **jukebox** of Belle's named songs; **LED dress-light** moves in an 8-colour palette (add "Light:
+Teal" to any routine); and Belle's own **volume + battery** in Settings.
+
+| Dance-Along | LED colour picker | Belle volume + battery |
+|---|---|---|
+| <img src="docs/img/f_songs.png" width="320"> | <img src="docs/img/f_led_stepper.png" width="320"> | <img src="docs/img/f_settings_volume.png" width="320"> |
+
+See [`BACKLOG.md`](BACKLOG.md) for what's next (autonomous queue playback, Freeze Dance, beat tools,
+Perform mode, and the live-doll tuning that unlocks the notify-driven features).
 
 ---
 
