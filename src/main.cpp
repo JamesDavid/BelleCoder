@@ -19,6 +19,7 @@
 #include "screens/LoadScreen.h"
 #include "screens/PlayScreen.h"
 #include "screens/DrawScreen.h"
+#include "screens/SongsScreen.h"
 
 void setup() {
   Serial.begin(115200);
@@ -46,6 +47,7 @@ void setup() {
   app.registerScreen(ScreenId::Load,     &loadScreen);
   app.registerScreen(ScreenId::Play,     &playScreen);
   app.registerScreen(ScreenId::Draw,     &drawScreen);
+  app.registerScreen(ScreenId::Songs,    &songsScreen);
 
   app.begin();
   console.begin();
