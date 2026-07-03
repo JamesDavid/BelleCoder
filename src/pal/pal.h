@@ -30,5 +30,10 @@ namespace pal {
   bool     supports(MoveId m);                 // drives palette greying
   void     settle();                           // neutral stop (brake wheels, arms down)
 
+  void     setVolume(int v);                   // SetToyVolume 0..5
+  void     requestBelleBattery();              // RequestLVDValue (doll replies on notify)
+  int      belleBattery();                     // -1 unknown, else 0..100 (from notify)
+  void     onNotify(const uint8_t* data, int len);   // parse toy->app notifications
+
   const char* lastLog();
 }

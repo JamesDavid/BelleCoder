@@ -45,6 +45,7 @@ namespace {
 
   void notifyCB(NimBLERemoteCharacteristic*, uint8_t* data, size_t len, bool) {
     Serial.printf("[ble] notify %d bytes\n", (int)len);
+    pal::onNotify(data, (int)len);   // battery / input / playlist events
   }
 
   // discover the recovered write/notify chars across all services (service UUID is dynamic)

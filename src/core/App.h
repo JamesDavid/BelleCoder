@@ -16,6 +16,7 @@ struct AppState {
   int      globalGapMs = 150;    // inter-step gap (SPEC §8)
   int      sensitivity = 5;      // capture sensitivity 1..10 (M6)
   bool     bounceToArms = true;  // map a bounce to arms (true) or a step (false)
+  int      belleVolume = 3;      // doll speaker volume 0..5
 };
 
 class App {

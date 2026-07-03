@@ -9,7 +9,9 @@
 
 namespace {
   // opcodes
-  enum { OP_AUDIO=16, OP_MOTOR=20, OP_LED=21, OP_SEQ=23, OP_CAMGOTO=25, OP_VOL=35, OP_APPMODE=80 };
+  enum { OP_AUDIO=16, OP_MOTOR=20, OP_LED=21, OP_SEQ=23, OP_CAMGOTO=25,
+         OP_LVD=33, OP_VOL=35, OP_APPMODE=80 };
+  int g_belleBatt = -1;   // Belle's battery %, from the LVD notify
   // BLEToyMotor / State / Direction
   enum { M_ARMS=0, M_LWHEEL=1, M_RWHEEL=2, M_BOTH=3 };
   enum { S_RUN=0, S_BRAKE=1, S_COAST=2 };
@@ -170,6 +172,24 @@ void settle() {
   g_brakePending = false;
   motorRun(M_BOTH, S_BRAKE, 0, D_FWD, "settle");
   camGoto(CAM_DOWN, "settle arms");
+}
+
+void setVolume(int v) {
+  if (v < 0) v = 0; if (v > 5) v = 5;
+  uint8_t p[2] = { OP_VOL, (uint8_t)v }; tx(p, 2, "Volume");
+}
+
+void requestBelleBattery() {
+  uint8_t p[1] = { OP_LVD }; tx(p, 1, "Batt?");
+}
+
+int belleBattery() { return g_belleBatt; }
+
+// Parse a toy->app notification. Payloads confirmed live in §11.4; the LVD mapping here is a
+// documented best-guess (data[1] as a 0..255 level -> percent).
+void onNotify(const uint8_t* data, int len) {
+  if (len < 1) return;
+  if (data[0] == OP_LVD && len >= 2) g_belleBatt = (int)data[1] * 100 / 255;
 }
 
 const char* lastLog() { return g_log; }
