@@ -21,6 +21,11 @@ static ScreenId screenByName(const char* n) {
   if (!strcmp(n,"settings")) return ScreenId::Settings;
   if (!strcmp(n,"dance"))    return ScreenId::Dance;
   if (!strcmp(n,"load"))     return ScreenId::Load;
+  if (!strcmp(n,"play"))     return ScreenId::Play;
+  if (!strcmp(n,"draw"))     return ScreenId::Draw;
+  if (!strcmp(n,"songs"))    return ScreenId::Songs;
+  if (!strcmp(n,"mirror"))   return ScreenId::Mirror;
+  if (!strcmp(n,"games"))    return ScreenId::Games;
   return ScreenId::Home;
 }
 
@@ -35,6 +40,11 @@ void SerialConsole::handle(char* line) {
       break;
     case 'T': case 't': {
       int x=0,y=0; if (sscanf(line+1, "%d %d", &x, &y)==2) { touch.injectTap(x,y); Serial.printf("[tap] %d,%d\n",x,y); }
+      break;
+    }
+    case 'D': case 'd': {                 // draw a stroke point: "D x y" (or "D x y u" = pen up)
+      int x=0,y=0; char up=0;
+      if (sscanf(line+1, "%d %d %c", &x, &y, &up)>=2) touch.injectDraw(x,y, up=='u'||up=='U');
       break;
     }
     case 'H': case 'h':

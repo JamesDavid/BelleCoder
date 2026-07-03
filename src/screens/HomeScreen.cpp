@@ -70,7 +70,7 @@ void HomeScreen::enter() {
   b(1,0, "Load",     Theme::CARD);
   b(0,1, "Editor",   Theme::C_DANCE);
   b(1,1, "Run",      Theme::GREEN);
-  if (S.imuPresent) b(0,2, "Dance to Code", Theme::C_SPIN);   // hidden entirely when absent (SPEC §9)
+  b(0,2, "Play", Theme::C_SPIN);        // hub: Draw / Songs / Dance-to-Code / Mirror / Simon
   b(1,2, "Settings", Theme::CARD);
 
   // footer band: sequence info; in Advanced also the IMU diagnostic (SPEC §9) on the left —
@@ -105,6 +105,6 @@ void HomeScreen::onTap(int x, int y) {
   if (btnAt(1,0).hit(x,y)) { app.go(ScreenId::Load); return; }
   if (btnAt(0,1).hit(x,y)) { app.go(ScreenId::Editor); return; }
   if (btnAt(1,1).hit(x,y)) { app.go(ScreenId::Run); return; }
-  if (S.imuPresent && btnAt(0,2).hit(x,y)) { app.go(ScreenId::Dance); return; }
+  if (btnAt(0,2).hit(x,y)) { app.go(ScreenId::Play); return; }
   if (btnAt(1,2).hit(x,y)) { app.go(ScreenId::Settings); return; }
 }
