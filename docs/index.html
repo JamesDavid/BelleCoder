@@ -43,19 +43,36 @@
 
   <h2>Flash it from your browser</h2>
   <div class="flash">
-    <p>Plug the CYD in over USB, click <b>Install</b>, and choose its serial port.
-    Flashing takes ~1 minute and erases the device. Presets ship with the install.</p>
-    <esp-web-install-button manifest="flash/manifest.json">
+    <p>Plug the CYD in over USB, pick your board variant, then click <b>Install</b> and choose its
+    serial port. Flashing takes ~1 minute and erases the device. Presets ship with the install.</p>
+    <p><label>Board variant:&nbsp;
+      <select id="variant" onchange="pickVariant()">
+        <option value="std">CYD2USB — ESP32-2432S028R (standard / micro-USB)</option>
+        <option value="elegoo">Elegoo CYD — USB-C only (portrait-native panel)</option>
+      </select></label></p>
+    <esp-web-install-button id="btn-std" manifest="flash/manifest.json">
       <button slot="activate">⚡ Install BelleCoder</button>
       <span slot="unsupported" class="btnfallback" style="display:block">
         Your browser can't do Web Serial — use desktop <b>Chrome</b> or <b>Edge</b>.</span>
       <span slot="not-allowed" class="btnfallback" style="display:block">
         Serial access was blocked — allow it and retry.</span>
     </esp-web-install-button>
-    <p class="dim" style="margin-bottom:0">Target: the 2.8" ESP32 CYD (<b>ESP32-2432S028R</b>,
-    ILI9341, resistive touch). If the colours look off after flashing, you're likely on a dual-USB
-    variant — that's a one-line compile flag (<code>CYD_INVERT_DISPLAY</code>) in the source.
-    It boots straight into the editor in <b>SIMULATE</b> mode — no doll required to try it.</p>
+    <esp-web-install-button id="btn-elegoo" manifest="flash/manifest-elegoo.json" style="display:none">
+      <button slot="activate">⚡ Install BelleCoder (Elegoo USB-C)</button>
+      <span slot="unsupported" class="btnfallback" style="display:block">
+        Your browser can't do Web Serial — use desktop <b>Chrome</b> or <b>Edge</b>.</span>
+      <span slot="not-allowed" class="btnfallback" style="display:block">
+        Serial access was blocked — allow it and retry.</span>
+    </esp-web-install-button>
+    <script>
+    function pickVariant(){var v=document.getElementById('variant').value;
+      document.getElementById('btn-std').style.display=(v=='std')?'':'none';
+      document.getElementById('btn-elegoo').style.display=(v=='elegoo')?'':'none';}
+    </script>
+    <p class="dim" style="margin-bottom:0">Both target the 2.8" ESP32 CYD (<b>ESP32-2432S028R</b>,
+    ILI9341, resistive touch). <b>Not sure which?</b> Flash <i>CYD2USB</i> first; if the screen is
+    sideways/portrait or upside-down, reflash <i>Elegoo</i> (its panel is portrait-native, so it runs
+    a different rotation). It boots straight into the editor in <b>SIMULATE</b> mode — no doll needed.</p>
   </div>
 
   <div class="need">

@@ -1,11 +1,14 @@
 #requires -version 5
-# Rebuild the CYD firmware + filesystem and refresh the web-flasher bins under docs/flash/.
-# The web flasher (docs/index.html) uses esp-web-tools with docs/flash/manifest.json, which
-# writes four parts to a single-app (no-OTA) ESP32 layout:
-#   cyd28/bootloader.bin @ 0x1000
-#   cyd28/partitions.bin @ 0x8000
-#   cyd28/firmware.bin   @ 0x10000
-#   cyd28/littlefs.bin   @ 0x2E0000   (presets + audio catalog ship with the install)
+# Rebuild the CYD firmware (+ filesystem) for every variant and refresh the web-flasher bins
+# under docs/flash/. The web flasher (docs/index.html) uses esp-web-tools with a per-variant
+# manifest, writing to a single-app (no-OTA) ESP32 layout:
+#   cyd28/bootloader.bin @ 0x1000     (shared)
+#   cyd28/partitions.bin @ 0x8000     (shared)
+#   cyd28/littlefs.bin   @ 0x2E0000   (shared: presets + audio catalog)
+#   <variant>/firmware.bin @ 0x10000  (per variant)
+# Variants:
+#   cyd28_ili9341 -> flash/manifest.json         (CYD2USB, standard ESP32-2432S028R)
+#   cyd28_elegoo  -> flash/manifest-elegoo.json  (Elegoo USB-C, portrait-native panel)
 #
 # Usage:  pwsh -File scripts/refresh-flasher.ps1
 # Then:   git add docs/flash; git commit
@@ -15,19 +18,28 @@ param(
 $ErrorActionPreference = "Stop"
 $env:PYTHONIOENCODING = "utf-8"
 $root  = Resolve-Path (Join-Path $PSScriptRoot "..")
-$env   = "cyd28_ili9341"
-$build = Join-Path $root ".pio\build\$env"
-$dst   = Join-Path $root "docs\flash\cyd28"
+$flash = Join-Path $root "docs\flash"
 
-Write-Host "==> building firmware + filesystem ($env)"
-& $pio run -e $env
-if ($LASTEXITCODE -ne 0) { throw "firmware build failed" }
-& $pio run -e $env -t buildfs
-if ($LASTEXITCODE -ne 0) { throw "filesystem build failed" }
-
-if (-not (Test-Path $dst)) { New-Item -ItemType Directory -Force $dst | Out-Null }
-foreach ($b in "bootloader.bin","partitions.bin","firmware.bin","littlefs.bin") {
-  Copy-Item (Join-Path $build $b) (Join-Path $dst $b) -Force
-  Write-Host ("  {0,-16} {1,8} bytes" -f $b, (Get-Item (Join-Path $dst $b)).Length)
+function Build([string]$e) {
+  Write-Host "==> building $e"
+  & $pio run -e $e; if ($LASTEXITCODE -ne 0) { throw "firmware build failed: $e" }
 }
-Write-Host "`nRefreshed docs/flash/cyd28. Next: git add docs/flash; git commit"
+
+# --- standard CYD2USB: firmware + the shared bootloader/partitions/filesystem ---
+Build "cyd28_ili9341"
+& $pio run -e cyd28_ili9341 -t buildfs; if ($LASTEXITCODE -ne 0) { throw "fs build failed" }
+$std = Join-Path $root ".pio\build\cyd28_ili9341"
+New-Item -ItemType Directory -Force (Join-Path $flash "cyd28") | Out-Null
+foreach ($b in "bootloader.bin","partitions.bin","firmware.bin","littlefs.bin") {
+  Copy-Item (Join-Path $std $b) (Join-Path $flash "cyd28\$b") -Force
+}
+
+# --- Elegoo variant: only its firmware differs (bootloader/partitions/fs are identical) ---
+Build "cyd28_elegoo"
+New-Item -ItemType Directory -Force (Join-Path $flash "elegoo") | Out-Null
+Copy-Item (Join-Path $root ".pio\build\cyd28_elegoo\firmware.bin") (Join-Path $flash "elegoo\firmware.bin") -Force
+
+Write-Host "`n--- refreshed flasher bins ---"
+Write-Host ("cyd28/firmware.bin  = {0} bytes" -f (Get-Item (Join-Path $flash 'cyd28\firmware.bin')).Length)
+Write-Host ("elegoo/firmware.bin = {0} bytes" -f (Get-Item (Join-Path $flash 'elegoo\firmware.bin')).Length)
+Write-Host "`nNext: git add docs/flash; git commit"

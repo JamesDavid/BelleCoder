@@ -11,8 +11,16 @@
 // ===========================================================================
 // 2.8" Cheap Yellow Display — ESP32-2432S028R, ILI9341 over HSPI, XPT2046 resistive
 // touch on a SEPARATE VSPI bus. No PSRAM.
+//
+// The Elegoo "USB-C only" CYD reuses this whole block (same pins/driver) but its ILI9341 is
+// portrait-native, so it overrides the orientation + touch-invert via -D flags (env cyd28_elegoo).
+// Those defines are #ifndef-guarded so the flags win. (Pattern from ../BladeKey-Overhead.)
 
+#ifdef BOARD_CYD28_ELEGOO
+  #define BOARD_NAME            "CYD 2.8\" ILI9341 USB-C (Elegoo)"
+#else
   #define BOARD_NAME            "CYD 2.8\" ILI9341 (ESP32-2432S028R)"
+#endif
 
   // Display (ILI9341 over HSPI: GPIO 12/13/14)
   #define PIN_TFT_MOSI          13
@@ -26,12 +34,23 @@
   // ORIENTATION (cyd.md / Overhead): this ILI9341 is mounted so the chip's MV=1 "landscape"
   // rotations render 90deg-wrong. Drive it LANDSCAPE-NATIVE 320x240 at MV=0. rotation 0 was
   // upright-but-mirrored on these units, so rotation 6 (= rot0 + horizontal flip) is upright.
+  // -028R is landscape-native (320x240, MV=0). The Elegoo USB-C variant is portrait-native, so it
+  // overrides these to 240x320 + rotation 1 (odd = landscape) via -D flags.
+#ifndef TFT_PANEL_WIDTH
   #define TFT_PANEL_WIDTH      320
+#endif
+#ifndef TFT_PANEL_HEIGHT
   #define TFT_PANEL_HEIGHT     240
+#endif
+#ifndef DISPLAY_DEFAULT_ROTATION
   #define DISPLAY_DEFAULT_ROTATION 6
+#endif
   // Reversed R/B wiring: set rgb_order or warm colours render cyan/blue (cyd.md).
+#ifndef CYD_PANEL_RGB_ORDER
   #define CYD_PANEL_RGB_ORDER  1
+#endif
 
+  // Logical landscape canvas the UI draws in (unchanged across variants).
   #define SCREEN_W             320
   #define SCREEN_H             240
 
@@ -42,8 +61,13 @@
   #define PIN_TOUCH_CS          33
   #define PIN_TOUCH_IRQ         36    // input-only; NOT gated (poll pressure)
   // MV=0 landscape flip point-reflects calibrateTouch's learned map -> invert both axes.
+  // The Elegoo's standard MV=1 landscape needs no inversion, so it overrides both to 0.
+#ifndef TOUCH_INVERT_X
   #define TOUCH_INVERT_X        1
+#endif
+#ifndef TOUCH_INVERT_Y
   #define TOUCH_INVERT_Y        1
+#endif
 
   // Backlight (cyd.md: low PWM freq — MOSFET can't switch off above ~10 kHz)
   #define BACKLIGHT_ACTIVE_HIGH  1
