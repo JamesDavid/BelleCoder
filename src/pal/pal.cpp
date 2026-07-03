@@ -11,7 +11,8 @@ namespace {
   // opcodes
   enum { OP_AUDIO=16, OP_MOTOR=20, OP_LED=21, OP_SEQ=23, OP_CAMGOTO=25,
          OP_LVD=33, OP_VOL=35, OP_APPMODE=80 };
-  int g_belleBatt = -1;   // Belle's battery %, from the LVD notify
+  int  g_belleBatt = -1;   // Belle's battery %, from the LVD notify
+  bool g_necklace = false; // set when Belle's necklace button is pressed (input notify)
   // BLEToyMotor / State / Direction
   enum { M_ARMS=0, M_LWHEEL=1, M_RWHEEL=2, M_BOTH=3 };
   enum { S_RUN=0, S_BRAKE=1, S_COAST=2 };
@@ -190,7 +191,11 @@ int belleBattery() { return g_belleBatt; }
 void onNotify(const uint8_t* data, int len) {
   if (len < 1) return;
   if (data[0] == OP_LVD && len >= 2) g_belleBatt = (int)data[1] * 100 / 255;
+  // input-state report -> necklace button (opcode/format tentative until §11.4)
+  if (data[0] == 0x20) g_necklace = true;
 }
+
+bool takeNecklacePress() { if (!g_necklace) return false; g_necklace = false; return true; }
 
 const char* lastLog() { return g_log; }
 

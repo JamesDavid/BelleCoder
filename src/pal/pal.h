@@ -34,6 +34,7 @@ namespace pal {
   void     requestBelleBattery();              // RequestLVDValue (doll replies on notify)
   int      belleBattery();                     // -1 unknown, else 0..100 (from notify)
   void     onNotify(const uint8_t* data, int len);   // parse toy->app notifications
+  bool     takeNecklacePress();                // one-shot: Belle's necklace button was pressed
 
   const char* lastLog();
 }
