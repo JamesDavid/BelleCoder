@@ -26,13 +26,16 @@ def read_exact(ser, n):
 
 
 def shot(ser, path):
-    ser.reset_input_buffer()
-    ser.write(b"S\n"); ser.flush()
-    hdr = None; deadline = time.time() + 10
-    while time.time() < deadline:
-        line = ser.readline()
-        if line.startswith(b"GBSHOT"):
-            hdr = line.strip().split(); break
+    hdr = None
+    for attempt in range(3):                 # retry if the header stalls (busy redraw)
+        ser.reset_input_buffer()
+        ser.write(b"S\n"); ser.flush()
+        deadline = time.time() + 5
+        while time.time() < deadline:
+            line = ser.readline()
+            if line.startswith(b"GBSHOT"):
+                hdr = line.strip().split(); break
+        if hdr: break
     if not hdr:
         print("  no GBSHOT header"); return
     w, h = int(hdr[1]), int(hdr[2])

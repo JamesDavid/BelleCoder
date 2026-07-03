@@ -63,10 +63,6 @@ void HomeScreen::enter() {
 
   // status band (BLE scan/link state; tap to find/connect)
   drawStatusBand();
-  if (S.tier == Tier::Advanced) {
-    char im[32]; snprintf(im, sizeof im, "IMU: %s", S.imuLabel);
-    canvas.text(im, SCREEN_W-14, 62, Theme::TEXT_DIM, 1, Align::R);
-  }
 
   // buttons
   auto b = [&](int c,int r,const char* label,uint16_t fill){ Rect q=btnAt(c,r); canvas.button(q.x,q.y,q.w,q.h,label,fill,Theme::TEXT); };
@@ -77,9 +73,16 @@ void HomeScreen::enter() {
   if (S.imuPresent) b(0,2, "Dance to Code", Theme::C_SPIN);   // hidden entirely when absent (SPEC §9)
   b(1,2, "Settings", Theme::CARD);
 
-  // footer
+  // footer band: sequence info; in Advanced also the IMU diagnostic (SPEC §9) on the left —
+  // both live in this band so nothing overlaps the button grid.
   char f[40]; snprintf(f, sizeof f, "\"%s\"  %d steps", S.scratch.name, S.scratch.count);
-  canvas.text(f, SCREEN_W/2, SCREEN_H-14, Theme::TEXT_DIM, 1, Align::C);
+  if (S.tier == Tier::Advanced) {
+    char im[32]; snprintf(im, sizeof im, "IMU: %s", S.imuLabel);
+    canvas.text(im, 6, SCREEN_H-14, Theme::TEXT_DIM, 1, Align::L);
+    canvas.text(f, SCREEN_W-6, SCREEN_H-14, Theme::TEXT_DIM, 1, Align::R);
+  } else {
+    canvas.text(f, SCREEN_W/2, SCREEN_H-14, Theme::TEXT_DIM, 1, Align::C);
+  }
 }
 
 void HomeScreen::tick(uint32_t) {

@@ -3,7 +3,7 @@
 #include "../core/Canvas.h"
 #include "../core/Theme.h"
 #include "../core/Hit.h"
-#include "../core/Nav.h"
+#include "../core/Toolbar.h"
 #include "../catalog/Catalog.h"
 #include "../services/Storage.h"
 #include <Arduino.h>
@@ -13,8 +13,12 @@ EditorScreen editorScreen;
 
 static const int TOP = 30, ROWH = 28, VIS = 5;
 
-// bottom toolbar (6 compact buttons)
-static Rect tb(int i) { int w = SCREEN_W/6; return { i*w+2, SCREEN_H-30, w-4, 26 }; }
+// bottom action bar (shared component -> equal slots, no overlap by construction)
+static const toolbar::Btn TB[] = {
+  { "Back", Theme::CARD }, { "+Add", Theme::C_MOVE }, { "Del", Theme::RED },
+  { "Up",   Theme::CARD }, { "Dn",   Theme::CARD   }, { "Run", Theme::GREEN },
+};
+static const int NTB = sizeof(TB)/sizeof(TB[0]);
 
 // stepper widgets
 static Rect sMinus() { return { 24,  120, 60, 60 }; }
@@ -79,14 +83,7 @@ void EditorScreen::enter() {
   char t[40]; snprintf(t, sizeof t, "%s  %d/%d", app.st.scratch.name, app.st.scratch.count, MAX_STEPS);
   canvas.title(t);
   drawList();
-  // toolbar: Back Add Del Up Dn Run — Back sits in slot 0 (the shared wide back-bar would
-  // overlap +Add in slot 1, so the editor draws its own slot-sized Back).
-  canvas.button(tb(0).x,tb(0).y,tb(0).w,tb(0).h,"Back",Theme::CARD,Theme::TEXT);
-  canvas.button(tb(1).x,tb(1).y,tb(1).w,tb(1).h,"+Add",Theme::C_MOVE,Theme::TEXT);
-  canvas.button(tb(2).x,tb(2).y,tb(2).w,tb(2).h,"Del", Theme::RED, Theme::TEXT);
-  canvas.button(tb(3).x,tb(3).y,tb(3).w,tb(3).h,"Up",  Theme::CARD,Theme::TEXT);
-  canvas.button(tb(4).x,tb(4).y,tb(4).w,tb(4).h,"Dn",  Theme::CARD,Theme::TEXT);
-  canvas.button(tb(5).x,tb(5).y,tb(5).w,tb(5).h,"Run", Theme::GREEN,Theme::TEXT);
+  toolbar::draw(TB, NTB);   // Back Add Del Up Dn Run — evenly slotted, no overlap
 }
 
 void EditorScreen::drawStepper() {
@@ -182,12 +179,14 @@ void EditorScreen::onTap(int x, int y) {
     }
     return;
   }
-  if (tb(0).hit(x,y)) { app.go(ScreenId::Home); return; }
-  if (tb(1).hit(x,y)) { app.go(ScreenId::Palette); return; }
-  if (tb(2).hit(x,y)) { if (!seq.empty()){ seq.removeAt(app.st.sel); if(app.st.sel>=seq.count) app.st.sel=max(0,(int)seq.count-1);} enter(); return; }
-  if (tb(3).hit(x,y)) { if (seq.moveUp(app.st.sel)) { app.st.sel--; } enter(); return; }
-  if (tb(4).hit(x,y)) { if (seq.moveDown(app.st.sel)) { app.st.sel++; } enter(); return; }
-  if (tb(5).hit(x,y)) { app.go(ScreenId::Run); return; }
+  switch (toolbar::hit(x, y, NTB)) {
+    case 0: app.go(ScreenId::Home); return;
+    case 1: app.go(ScreenId::Palette); return;
+    case 2: if (!seq.empty()){ seq.removeAt(app.st.sel); if(app.st.sel>=seq.count) app.st.sel=max(0,(int)seq.count-1);} enter(); return;
+    case 3: if (seq.moveUp(app.st.sel)) app.st.sel--; enter(); return;
+    case 4: if (seq.moveDown(app.st.sel)) app.st.sel++; enter(); return;
+    case 5: app.go(ScreenId::Run); return;
+  }
 
   // tap a row: select; second tap on an already-selected param row opens the stepper
   if (y>=TOP && y<TOP+VIS*ROWH) {

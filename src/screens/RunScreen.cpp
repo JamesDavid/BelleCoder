@@ -57,11 +57,11 @@ void RunScreen::drawStatus() {
   }
   canvas.text(label, SCREEN_W/2+16, 84, Theme::GOLD, 2, Align::C);
 
-  // PAL log line (what went to the doll / SIM)
+  // PAL log line (what went to the doll / SIM) — own band, no overlap with the card
   canvas.fillRound(20, 128, SCREEN_W-40, 30, 6, Theme::BG_ALT);
   canvas.text(pal::lastLog(), SCREEN_W/2, 138, Theme::TEXT_DIM, 1, Align::C);
   if (pal::simulated())
-    canvas.text("SIMULATE", SCREEN_W-24, 66, Theme::GOLD, 1, Align::R);
+    canvas.text("SIMULATE", SCREEN_W/2, 164, Theme::GOLD, 1, Align::C);
 
   // transport buttons
   Rect a=btnPlay(),b=btnPause(),c=btnStop();
