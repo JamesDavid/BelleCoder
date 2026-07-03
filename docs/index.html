@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BelleCoder — flash your CYD dance wand</title>
+<style>
+  :root { --bg:#18101c; --card:#251830; --line:#3a2740; --fg:#f4ecf6; --dim:#c3a9cf; --accent:#f6c945; --rose:#f76fa0; --ok:#37d67a; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.55 system-ui,Segoe UI,Roboto,sans-serif; }
+  .wrap { max-width:900px; margin:0 auto; padding:28px 20px 64px; }
+  h1 { font-size:2.1rem; margin:.2em 0 .1em; color:var(--accent); }
+  h1 .rose { color:var(--rose); }
+  h2 { margin:1.8em 0 .5em; font-size:1.3rem; border-bottom:1px solid var(--line); padding-bottom:.3em; color:var(--accent); }
+  .tag { color:var(--rose); font-size:1.05rem; margin:0 0 1.2em; }
+  p { color:var(--fg); } .dim { color:var(--dim); }
+  a { color:var(--accent); }
+  .flash { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:22px; margin:18px 0; text-align:center; }
+  .flash esp-web-install-button { --esp-tools-button-color:#18101c; --esp-tools-button-bg:var(--accent); }
+  .btnfallback { display:none; color:var(--dim); font-size:.9rem; margin-top:10px; }
+  .need { display:flex; flex-wrap:wrap; gap:14px; margin:14px 0; }
+  .need div { flex:1 1 200px; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  .gal { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:18px; }
+  figure { margin:0; background:var(--card); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  figure img { width:100%; display:block; image-rendering:pixelated; background:#000; }
+  figcaption { padding:10px 12px; font-size:.9rem; color:var(--dim); }
+  figcaption b { color:var(--fg); }
+  code { background:#0e0a12; padding:1px 5px; border-radius:4px; color:#f0dcf5; }
+  .foot { margin-top:40px; color:var(--dim); font-size:.9rem; border-top:1px solid var(--line); padding-top:16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1><span class="rose">🌹</span> BelleCoder</h1>
+  <p class="tag">Program Belle's dances on a $12 touchscreen wand — or by dancing with it.</p>
+
+  <p>BelleCoder turns a <b>Cheap Yellow Display</b> (ESP32-2432S028R) into a standalone
+  dance-programmer wand for the Hasbro <i>Dance Code featuring Disney Princess Belle</i> doll.
+  Build dance sequences with big touch icons, capture a routine by <b>physically waving the
+  device</b>, and stream it to Belle over Bluetooth — replacing the discontinued Hasbro app.
+  Always paired, never expires, no phone or tablet needed.</p>
+
+  <h2>Flash it from your browser</h2>
+  <div class="flash">
+    <p>Plug the CYD in over USB, click <b>Install</b>, and choose its serial port.
+    Flashing takes ~1 minute and erases the device. Presets ship with the install.</p>
+    <esp-web-install-button manifest="flash/manifest.json">
+      <button slot="activate">⚡ Install BelleCoder</button>
+      <span slot="unsupported" class="btnfallback" style="display:block">
+        Your browser can't do Web Serial — use desktop <b>Chrome</b> or <b>Edge</b>.</span>
+      <span slot="not-allowed" class="btnfallback" style="display:block">
+        Serial access was blocked — allow it and retry.</span>
+    </esp-web-install-button>
+    <p class="dim" style="margin-bottom:0">Target: the 2.8" ESP32 CYD (<b>ESP32-2432S028R</b>,
+    ILI9341, resistive touch). If the colours look off after flashing, you're likely on a dual-USB
+    variant — that's a one-line compile flag (<code>CYD_INVERT_DISPLAY</code>) in the source.
+    It boots straight into the editor in <b>SIMULATE</b> mode — no doll required to try it.</p>
+  </div>
+
+  <div class="need">
+    <div><b>Board</b><br>ESP32-2432S028R "CYD" (2.8" ILI9341, resistive touch). ~$10–15.</div>
+    <div><b>Browser</b><br>Desktop Chrome or Edge (Web Serial). Won't work on Firefox/Safari/mobile.</div>
+    <div><b>Cable</b><br>A data USB cable + the CH340 driver if your OS needs it.</div>
+  </div>
+
+  <h2>What you get</h2>
+  <div class="gal">
+
+    <figure><img src="img/m8_home_battery.png" alt="Home screen">
+      <figcaption><b>Home &amp; connect.</b> Tap the status band to scan for Belle over BLE;
+      New / Load / Editor / Run / Settings; battery (or USB) indicator.</figcaption></figure>
+
+    <figure><img src="img/m1_editor.png" alt="Editor">
+      <figcaption><b>Tap-to-build editor.</b> Add / reorder / delete steps with big icons;
+      songs &amp; dances show friendly names, not raw indices.</figcaption></figure>
+
+    <figure><img src="img/m6_recording.png" alt="Dance to Code recording">
+      <figcaption><b>Dance to Code.</b> Record, then wave/spin/bounce the wand — live recognition
+      turns your motion into editable dance steps.</figcaption></figure>
+
+    <figure><img src="img/m6_captured.png" alt="Captured dance">
+      <figcaption><b>Your dance → code.</b> The captured routine lands in the editor as discrete,
+      tweakable steps you can review and change.</figcaption></figure>
+
+    <figure><img src="img/m2_load.png" alt="Preset library">
+      <figcaption><b>Preset library.</b> The 10 original Hasbro dances (extracted from the app)
+      plus BelleCoder originals — each loads as an editable sequence.</figcaption></figure>
+
+    <figure><img src="img/m4_run.png" alt="Run screen">
+      <figcaption><b>Run.</b> Plays the sequence with a synced progress bar, showing the exact
+      command bytes it streams to the doll.</figcaption></figure>
+
+    <figure><img src="img/m1_palette_adv.png" alt="Advanced palette">
+      <figcaption><b>Two skill tiers.</b> A Kid palette (Move / Arms / Spin / Dance) and an
+      Advanced palette with the full instruction set + REPEAT loops.</figcaption></figure>
+
+    <figure><img src="img/m8_wand_preview.png" alt="Wand enclosure">
+      <figcaption><b>The wand.</b> A parametric 3D-printed handle enclosure with a rigid IMU
+      mount, LiPo, and wrist strap — the toybox artifact.</figcaption></figure>
+
+  </div>
+
+  <h2>Then what?</h2>
+  <p>It boots into the editor in <b>SIMULATE</b> mode, so you can build and run dances with no doll
+  present — every command is logged. Once Belle's BLE timing is tuned on a real doll, a one-line
+  flag streams the real commands. The whole doll protocol was reverse-engineered from the original
+  app; see the repo for the write-up.</p>
+
+  <div class="foot">
+    <p>Source, hardware guide &amp; the reverse-engineering write-up:
+    <a href="https://github.com/JamesDavid/BelleCoder">github.com/JamesDavid/BelleCoder</a>
+    · Interoperability project for a toy we own.</p>
+  </div>
+
+</div>
+<script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js"></script>
+</body>
+</html>

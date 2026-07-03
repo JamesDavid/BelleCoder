@@ -1,0 +1,16 @@
+{
+  "name": "BelleCoder — CYD dance programmer",
+  "version": "0.1.0",
+  "new_install_prompt_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        { "path": "cyd28/bootloader.bin", "offset": 4096 },
+        { "path": "cyd28/partitions.bin", "offset": 32768 },
+        { "path": "cyd28/firmware.bin",   "offset": 65536 },
+        { "path": "cyd28/littlefs.bin",   "offset": 3014656 }
+      ]
+    }
+  ]
+}

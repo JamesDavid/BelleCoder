@@ -43,7 +43,21 @@ void Canvas::card(int x,int y,int w,int h,uint16_t fill,bool sel){
 void Canvas::button(int x,int y,int w,int h,const char* label,uint16_t fill,uint16_t txt,bool sel){
   fillRound(x,y,w,h,7,fill);
   if (sel) { round(x,y,w,h,7,Theme::GOLD); round(x+1,y+1,w-2,h-2,6,Theme::GOLD); }
+  // pick the largest size that fits the button width, then shrink until it fits (no run-off)
   int sz = (h >= 40) ? 2 : 1;
+  while (sz > 1 && textWidth(label, sz) > w - 8) sz--;
+  if (sz == 1 && textWidth(label, 1) > w - 4) {
+    // still too wide at size 1: split on the last space into two lines
+    const char* sp = nullptr;
+    for (const char* p = label; *p; ++p) if (*p == ' ') sp = p;
+    if (sp) {
+      char a[24]; int n = (int)(sp - label); if (n > 23) n = 23;
+      memcpy(a, label, n); a[n] = 0;
+      text(a,     x + w/2, y + h/2 - 9, txt, 1, Align::C);
+      text(sp+1,  x + w/2, y + h/2 + 1, txt, 1, Align::C);
+      return;
+    }
+  }
   text(label, x + w/2, y + (h - 8*sz)/2, txt, sz, Align::C);
 }
 
