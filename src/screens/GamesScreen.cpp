@@ -3,7 +3,7 @@
 #include "../core/Canvas.h"
 #include "../core/Theme.h"
 #include "../core/Hit.h"
-#include "../core/Nav.h"
+#include "../core/Toolbar.h"
 #include "../pal/pal.h"
 #include <Arduino.h>
 
@@ -18,11 +18,11 @@ static const Tile TILES[4] = {
   { LED_COLOR,    1, "Light", Theme::GOLD   },
 };
 
+// 2x2 tile grid that fits entirely above the bottom toolbar (no overlap)
 static Rect tileRect(int i) {
-  const int m=10, top=52, gap=8, tw=(SCREEN_W-2*m-gap)/2, th=68;
+  const int m=10, top=46, gap=8, tw=(SCREEN_W-2*m-gap)/2, th=74;
   return { m + (i%2)*(tw+gap), top + (i/2)*(th+gap), tw, th };
 }
-static Rect startBtn() { return { SCREEN_W/2-70, SCREEN_H-58, 140, 30 }; }
 
 void GamesScreen::newGame() {
   randomSeed(millis() ^ (analogRead(34) << 3));
@@ -54,11 +54,10 @@ void GamesScreen::draw() {
     canvas.moveGlyph(TILES[i].move, r.x+30, r.y+r.h/2, 14, lit?Theme::BG:TILES[i].col);
     canvas.text(TILES[i].label, r.x+r.w/2+14, r.y+r.h/2-4, Theme::TEXT, 2, Align::C);
   }
-  if (_phase==Phase::Idle || _phase==Phase::Over) {
-    Rect s=startBtn();
-    canvas.button(s.x,s.y,s.w,s.h, _phase==Phase::Over?"Play Again":"Start", Theme::GREEN, Theme::TEXT);
-  }
-  nav::drawBack();
+  // bottom toolbar: Back + a start/restart action — never overlaps the tiles
+  const char* action = (_phase==Phase::Over) ? "Play Again" : (_phase==Phase::Idle) ? "Start" : "Restart";
+  toolbar::Btn tb[2] = { { "Back", Theme::CARD }, { action, Theme::GREEN } };
+  toolbar::draw(tb, 2);
 }
 
 void GamesScreen::enter() { _phase = Phase::Idle; _len = 0; _flashTile = -1; draw(); }
@@ -85,9 +84,10 @@ void GamesScreen::tick(uint32_t ms) {
 }
 
 void GamesScreen::onTap(int x, int y) {
-  if (nav::backRect().hit(x,y)) { app.go(ScreenId::Play); return; }
-  if ((_phase==Phase::Idle || _phase==Phase::Over) && startBtn().hit(x,y)) { newGame(); draw(); return; }
-
+  switch (toolbar::hit(x, y, 2)) {
+    case 0: app.go(ScreenId::Play); return;
+    case 1: newGame(); draw(); return;      // Start / Play Again / Restart
+  }
   if (_phase==Phase::Input) {
     for (int i=0;i<4;i++) if (tileRect(i).hit(x,y)) {
       flash(i);
