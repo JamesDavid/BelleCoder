@@ -1,5 +1,6 @@
 #include "pal.h"
 #include "../services/Ble.h"
+#include "../catalog/Catalog.h"
 #include <Arduino.h>
 #include <LittleFS.h>
 
@@ -45,6 +46,9 @@ namespace {
   }
   void camGoto(uint8_t pos, const char* h) {
     uint8_t p[3] = { OP_CAMGOTO, 0 /*dir=closest*/, pos }; tx(p, 3, h);
+  }
+  void setLed(uint8_t r, uint8_t g, uint8_t b, const char* h) {
+    uint8_t p[4] = { OP_LED, r, g, b }; tx(p, 4, h);
   }
   void playAudio(uint16_t idx, const char* h) {
     uint8_t p[3] = { OP_AUDIO, (uint8_t)(idx & 0xFF), (uint8_t)(idx >> 8) }; tx(p, 3, h);
@@ -105,6 +109,7 @@ uint16_t durationOf(MoveId m, int16_t p1) {
     case ARM_L_UP: case ARM_L_DOWN: case ARM_R_UP: case ARM_R_DOWN:
     case ARMS_UP: case ARMS_DOWN:        return 450;
     case HEAD_LEFT: case HEAD_RIGHT: case HEAD_CENTER: return 350;
+    case LED_COLOR:                      return 300;
     case PLAY_SONG:                      return phraseMs(250 + (p1<1?1:p1), 4000);
     case PLAY_PHRASE:                    return phraseMs(p1, 2500);
     case PLAY_DANCE:                     return 6000;
@@ -140,6 +145,9 @@ bool sendMove(MoveId m, int16_t p1) {
     case HEAD_LEFT:  camGoto(CAM_LOUT, "Head L");    break;
     case HEAD_RIGHT: camGoto(CAM_OUT,  "Head R");    break;
     case HEAD_CENTER:camGoto(CAM_DOWN, "Head mid");  break;
+    case LED_COLOR: { uint8_t r,g,b; catalog::ledRGB(p1,r,g,b);
+                      char h[24]; snprintf(h,sizeof h,"Light %s", catalog::ledName(p1));
+                      setLed(r,g,b,h); break; }
     case PLAY_SONG:  playAudio(250 + n, "Song");     break;   // songs 251..260
     case PLAY_PHRASE:playAudio(p1,      "Phrase");   break;
     case PLAY_DANCE: playSeq(n,         "Dance");    break;   // HL index tuned live (§11.4)

@@ -64,7 +64,8 @@ void EditorScreen::drawList() {
     Step s = seq.steps[i];
     bool sel = (i == app.st.sel);
     canvas.card(6, y+2, SCREEN_W-12, ROWH-4, sel?Theme::CARD_SEL:Theme::CARD, sel);
-    canvas.moveGlyph(s.move, 22, y+ROWH/2, 8, catColor(catOf(s.move)));
+    uint16_t gc = (s.move==LED_COLOR) ? catalog::ledColor565(s.p1) : catColor(catOf(s.move));
+    canvas.moveGlyph(s.move, 22, y+ROWH/2, 8, gc);
     char line[40], body[32]; stepLabel(s, body, sizeof body);
     snprintf(line, sizeof line, "%2d. %s", i+1, body);
     canvas.text(line, 40, y+ROWH/2-4, s.repeatGrp>=2?Theme::GOLD:Theme::TEXT, 1, Align::L);
@@ -92,15 +93,17 @@ void EditorScreen::drawStepper() {
   canvas.title(_sRepeat ? "Repeat Move" : _sNew ? "Add Move" : "Edit Move");
   // for repeat, glyph/label reflect the step being looped
   MoveId shown = _sRepeat ? app.st.scratch.steps[app.st.sel].move : _sMove;
-  canvas.moveGlyph(shown, 40, 62, 18, catColor(catOf(shown)));
+  uint16_t gc = (shown==LED_COLOR) ? catalog::ledColor565(_sVal) : catColor(catOf(shown));
+  canvas.moveGlyph(shown, 40, 62, 18, gc);
   canvas.text(_sRepeat ? moveInfo(shown).label : mi.label, SCREEN_W/2+10, 50, Theme::GOLD, 2, Align::C);
 
-  // value display (name for song/dance/phrase; "x N" for repeat)
+  // value display (name for song/dance/phrase/light; "x N" for repeat)
   char val[28];
   if (_sRepeat)                                                snprintf(val, sizeof val, "loop x%d", _sVal);
-  else if (_sMove==PLAY_SONG || _sMove==PLAY_DANCE || _sMove==PLAY_PHRASE)
+  else if (_sMove==PLAY_SONG || _sMove==PLAY_DANCE || _sMove==PLAY_PHRASE || _sMove==LED_COLOR)
     catalog::label(_sMove, _sVal, val, sizeof val);
   else snprintf(val, sizeof val, "%d %s", _sVal, mi.pUnit);
+  if (_sMove==LED_COLOR) canvas.fillCircle(SCREEN_W/2, 168, 8, catalog::ledColor565(_sVal));  // swatch
   canvas.fillRound(90, 122, SCREEN_W-180, 56, 8, Theme::CARD);
   canvas.text(val, SCREEN_W/2, 142, Theme::TEXT, 2, Align::C);
 

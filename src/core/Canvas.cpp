@@ -67,6 +67,7 @@ uint16_t catColor(MoveCat c) {
     case MoveCat::Spin:   return Theme::C_SPIN;
     case MoveCat::Arms:   return Theme::C_ARMS;
     case MoveCat::Head:   return Theme::C_HEAD;
+    case MoveCat::Light:  return Theme::GOLD;
     case MoveCat::Sound:  return Theme::C_SOUND;
     case MoveCat::Dance:  return Theme::C_DANCE;
     case MoveCat::Wait:   return Theme::C_WAIT;
@@ -116,12 +117,22 @@ static void loop(int cx,int cy,int r,uint16_t c){ G().drawCircle(cx,cy,r,c); G()
 static void star(int cx,int cy,int r,uint16_t c){
   for (int i=0;i<5;i++){ float a=(-90+i*72)*3.14159f/180.0f; int x=cx+(int)(cosf(a)*r),y=cy+(int)(sinf(a)*r); G().drawLine(cx,cy,x,y,c); G().drawLine(cx-1,cy,x,y,c);} }
 
+static void bulb(int cx,int cy,int r,uint16_t c){
+  G().fillCircle(cx, cy-r/4, (r*3)/4, c);              // glass
+  G().fillRect(cx-r/3, cy+r/2, 2*(r/3)+1, r/3, c);     // base
+  // sparkle rays
+  for (int i=0;i<4;i++){ float a=(-90+i*90+45)*3.14159f/180.0f;
+    G().drawLine(cx+(int)(cosf(a)*(r+2)), cy-r/4+(int)(sinf(a)*(r+2)),
+                 cx+(int)(cosf(a)*(r+6)), cy-r/4+(int)(sinf(a)*(r+6)), c); }
+}
+
 void Canvas::catGlyph(MoveCat cat, int cx, int cy, int r, uint16_t c) {
   switch (cat) {
     case MoveCat::Move:   arrowUp(cx,cy,r,c); break;
     case MoveCat::Spin:   swirl(cx,cy,r,c,true); break;
     case MoveCat::Arms:   stickArms(cx,cy,r,c,1,1); break;
     case MoveCat::Head:   G().fillCircle(cx,cy,r-2,c); arrowRight(cx,cy,r/2,Theme::BG); break;
+    case MoveCat::Light:  bulb(cx,cy,r,c); break;
     case MoveCat::Sound:  note(cx,cy,r,c); break;
     case MoveCat::Dance:  star(cx,cy,r,c); break;
     case MoveCat::Wait:   hourglass(cx,cy,r,c); break;
@@ -145,6 +156,7 @@ void Canvas::moveGlyph(MoveId m, int cx, int cy, int r, uint16_t c) {
     case HEAD_LEFT:    G().fillCircle(cx,cy,r-2,c); arrowLeft(cx,cy,r/2,Theme::BG); break;
     case HEAD_RIGHT:   G().fillCircle(cx,cy,r-2,c); arrowRight(cx,cy,r/2,Theme::BG); break;
     case HEAD_CENTER:  G().fillCircle(cx,cy,r-2,c); G().fillCircle(cx,cy,2,Theme::BG); break;
+    case LED_COLOR:    bulb(cx,cy,r,c); break;
     case PLAY_SONG:    note(cx,cy,r,c); break;
     case PLAY_PHRASE:  note(cx,cy,r,c); G().fillCircle(cx+r/2,cy-r/2,2,c); break;
     case PLAY_DANCE:   star(cx,cy,r,c); break;

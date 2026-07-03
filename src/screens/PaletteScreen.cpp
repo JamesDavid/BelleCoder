@@ -12,11 +12,11 @@ PaletteScreen paletteScreen;
 // M0: show categories + the moves in the active category as tappable tiles; tapping a move
 // appends it to the scratch with its default param and returns to the editor. Kid tier filters
 // to kidTier moves. (Param stepper for parameterised moves is added in M1.)
-static const MoveCat KID_CATS[]  = { MoveCat::Move, MoveCat::Arms, MoveCat::Spin, MoveCat::Dance };
-static const MoveCat ADV_CATS[]  = { MoveCat::Move, MoveCat::Spin, MoveCat::Arms, MoveCat::Head,
+static const MoveCat KID_CATS[]  = { MoveCat::Move, MoveCat::Arms, MoveCat::Spin, MoveCat::Light, MoveCat::Dance };
+static const MoveCat ADV_CATS[]  = { MoveCat::Move, MoveCat::Spin, MoveCat::Arms, MoveCat::Head, MoveCat::Light,
                                      MoveCat::Sound, MoveCat::Dance, MoveCat::Wait, MoveCat::Repeat };
 
-static int catCount() { return app.st.tier==Tier::Kid ? 4 : 8; }
+static int catCount() { return app.st.tier==Tier::Kid ? 5 : 9; }
 static MoveCat catAt(int i) { return app.st.tier==Tier::Kid ? KID_CATS[i] : ADV_CATS[i]; }
 
 static Rect tabRect(int i, int n) {

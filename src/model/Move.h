@@ -4,13 +4,14 @@
 // param range) drives the palette and the editor rows.
 #include <stdint.h>
 
-enum class MoveCat : uint8_t { Move, Spin, Arms, Head, Sound, Dance, Wait, Repeat, COUNT };
+enum class MoveCat : uint8_t { Move, Spin, Arms, Head, Light, Sound, Dance, Wait, Repeat, COUNT };
 
 enum MoveId : uint8_t {
   STEP_FORWARD, STEP_BACK,
   TWIRL_LEFT, TWIRL_RIGHT,
   ARM_L_UP, ARM_L_DOWN, ARM_R_UP, ARM_R_DOWN, ARMS_UP, ARMS_DOWN,
   HEAD_LEFT, HEAD_RIGHT, HEAD_CENTER,
+  LED_COLOR,            // dress light -> palette colour (p1 = colour index)
   PLAY_SONG, PLAY_PHRASE, PLAY_DANCE,
   WAIT,
   REPEAT,               // advanced control block (repeat count in p1)

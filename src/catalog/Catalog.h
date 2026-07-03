@@ -11,4 +11,10 @@ namespace catalog {
   int         danceCount();
   const char* songName(int i1);      // 1-based
   const char* danceName(int i1);     // 1-based
+
+  // LED colour palette (LED_COLOR p1 = 0-based index)
+  int         ledCount();
+  const char* ledName(int i0);
+  uint16_t    ledColor565(int i0);   // for UI swatches
+  void        ledRGB(int i0, uint8_t& r, uint8_t& g, uint8_t& b);  // for the doll
 }

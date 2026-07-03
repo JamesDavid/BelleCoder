@@ -17,6 +17,7 @@ static const MoveInfo CATALOG[MOVE_COUNT] = {
   { HEAD_LEFT,    MoveCat::Head,  "Head L",      false, 0,  0,  0, "",   false },
   { HEAD_RIGHT,   MoveCat::Head,  "Head R",      false, 0,  0,  0, "",   false },
   { HEAD_CENTER,  MoveCat::Head,  "Head Mid",    false, 0,  0,  0, "",   false },
+  { LED_COLOR,    MoveCat::Light, "Light",       true,  0,  7,  2, "",   true  },
   { PLAY_SONG,    MoveCat::Sound, "Song",        true,  1, 10,  1, "#",  false },
   { PLAY_PHRASE,  MoveCat::Sound, "Phrase",      true,  1,421,  1, "#",  false },
   { PLAY_DANCE,   MoveCat::Dance, "Dance",       true,  1, 12,  1, "#",  true  },
@@ -33,6 +34,7 @@ const char* catName(MoveCat c) {
     case MoveCat::Spin:   return "Spin";
     case MoveCat::Arms:   return "Arms";
     case MoveCat::Head:   return "Head";
+    case MoveCat::Light:  return "Light";
     case MoveCat::Sound:  return "Sound";
     case MoveCat::Dance:  return "Dance";
     case MoveCat::Wait:   return "Wait";
