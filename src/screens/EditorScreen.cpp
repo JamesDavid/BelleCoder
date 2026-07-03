@@ -79,8 +79,9 @@ void EditorScreen::enter() {
   char t[40]; snprintf(t, sizeof t, "%s  %d/%d", app.st.scratch.name, app.st.scratch.count, MAX_STEPS);
   canvas.title(t);
   drawList();
-  // toolbar: Back + Add Del Up Dn Run
-  nav::drawBack();
+  // toolbar: Back Add Del Up Dn Run — Back sits in slot 0 (the shared wide back-bar would
+  // overlap +Add in slot 1, so the editor draws its own slot-sized Back).
+  canvas.button(tb(0).x,tb(0).y,tb(0).w,tb(0).h,"Back",Theme::CARD,Theme::TEXT);
   canvas.button(tb(1).x,tb(1).y,tb(1).w,tb(1).h,"+Add",Theme::C_MOVE,Theme::TEXT);
   canvas.button(tb(2).x,tb(2).y,tb(2).w,tb(2).h,"Del", Theme::RED, Theme::TEXT);
   canvas.button(tb(3).x,tb(3).y,tb(3).w,tb(3).h,"Up",  Theme::CARD,Theme::TEXT);
@@ -181,7 +182,7 @@ void EditorScreen::onTap(int x, int y) {
     }
     return;
   }
-  if (nav::backRect().hit(x,y)) { app.go(ScreenId::Home); return; }
+  if (tb(0).hit(x,y)) { app.go(ScreenId::Home); return; }
   if (tb(1).hit(x,y)) { app.go(ScreenId::Palette); return; }
   if (tb(2).hit(x,y)) { if (!seq.empty()){ seq.removeAt(app.st.sel); if(app.st.sel>=seq.count) app.st.sel=max(0,(int)seq.count-1);} enter(); return; }
   if (tb(3).hit(x,y)) { if (seq.moveUp(app.st.sel)) { app.st.sel--; } enter(); return; }
