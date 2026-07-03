@@ -7,6 +7,8 @@ replaces the discontinued Hasbro app: always paired, never expires, no phone or 
 
 <p align="center"><img src="docs/img/m8_home_battery.png" width="360" alt="BelleCoder home screen"></p>
 
+<p align="center"><b>⚡ <a href="https://jamesdavid.github.io/BelleCoder/">Flash it from your browser</a></b> — plug in a CYD, click Install (Chrome/Edge). No toolchain needed.</p>
+
 Everything below runs **today** on real hardware — every screenshot in this README was captured
 from the live CYD over the serial debug loop. The doll's BLE protocol was fully reverse-engineered
 (see [`docs/BLE_PROTOCOL.md`](docs/BLE_PROTOCOL.md)); the firmware builds the real command packets
